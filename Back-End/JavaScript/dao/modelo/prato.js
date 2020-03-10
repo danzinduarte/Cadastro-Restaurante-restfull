@@ -24,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
             
         },
         Preco: {
-            type: DataTypes.BIGINT,
+            type: DataTypes.INTEGER,
             field: 'preco',
             allowNull: false,
             comment: 'preco do prato'
@@ -37,7 +37,7 @@ module.exports = function(sequelize, DataTypes) {
         },
 
     }, {
-        //schema: 'public',
+        schema: 'public',
         tableName: 'prato',
         timestamps: false,
         name:{

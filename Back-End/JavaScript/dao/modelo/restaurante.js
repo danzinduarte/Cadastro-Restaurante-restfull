@@ -1,16 +1,10 @@
-/*
-O propósito de "use strict" é indicar que o código deve ser executado em "modo estrito".
-Com o modo estrito, você não pode, por exemplo, usar variáveis ​​não declaradas.
-*/
 'use strict';
 
-//Sequelize = ORM banco relacional
-//Modelos são definidos com sequelize.define('name', {attributes}, {options}).
 module.exports = function(sequelize, DataTypes) {
     return sequelize.define('Restaurante', {
-        id: {
+        Id: {
             type: DataTypes.INTEGER,
-            field: 'Id',
+            field: 'id',
             allowNull: false,
             primaryKey: true,
             autoIncrement: true,
@@ -24,8 +18,8 @@ module.exports = function(sequelize, DataTypes) {
         }
         
     }, {
-        //schema: 'public',
-        tableName: 'Restaurante',
+        schema: 'public',
+        tableName: 'restaurante',
         timestamps: false,
         name:{
             singular:'restaurante',
@@ -36,5 +30,6 @@ module.exports = function(sequelize, DataTypes) {
 
 module.exports.initRelations = function() {
     delete module.exports.initRelations; 
+    
 };
 

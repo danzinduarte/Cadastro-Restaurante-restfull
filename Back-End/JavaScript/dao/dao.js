@@ -1,23 +1,16 @@
-/*
-O propósito de "use strict" é indicar que o código deve ser executado em "modo estrito".
-Com o modo estrito, você não pode, por exemplo, usar variáveis ​​não declaradas.
-*/
+
 'use strict';
 
 var pg = require('pg');
-
-//Importar um módulo sequelize usando require('sequelize'). Assim Sequelize representa uma variável de referência ao Sequelize.e
 let Sequelize   = require('sequelize'),
-//Criamos uma nova instância do Sequelize usando o seu construtor que possui a seguinte sintaxe:
-//new Sequelize(database, [username=null], [password=null], [options={}])
-    conexao     = new Sequelize('CadastroDeRestaurante', 'postgres', '1234',
+conexao     = new Sequelize('CadastroDeRestaurante', 'postgres', '1234',
 
     {
         host: '127.0.0.1',
-        port:5432,          //A porta do banco de dados relacional.
-        dialect: 'postgres',   //O dialeto do banco de dados ao qual você está se conectando. Um dos mysql, postgres, sqlite e mssql.
-        logging: false,     //Uma função que registra consultas sql ou false para nenhum log
-        isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.READ_COMMITTED    //	Definir o nível de isolamento de transação padrão. Veja Sequelize.Transaction.ISOLATION_LEVELS as opções possíveis.    
+        port:5432,          
+        dialect: 'postgres',
+        logging: false,     
+        isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.READ_COMMITTED 
     });
 
 var types = {
@@ -49,8 +42,8 @@ function init() {
     
 	// Modelos
    
-    model.prato                = conexao.import('./modelo/prato.js');
-    model.restaurante          = conexao.import('./modelo/restaurante.js');
+    model.Prato                = conexao.import('./modelo/prato.js');
+    model.Restaurante          = conexao.import('./modelo/restaurante.js');
    
     
     // Arquivos
