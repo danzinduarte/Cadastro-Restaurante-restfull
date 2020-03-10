@@ -1,4 +1,4 @@
-const dataContext = require('../dao/dao'),
+const dataContext = require('../dao/dao');
 
 function carregaTudo(req,res) 
 {
@@ -53,12 +53,7 @@ function carregaPorId(req,res)
 function salvaRestaurante(req,res)
 {
 
-	let restaurante = req.body.restaurante,
-	restaurante = 
-	{
-		restaurante  : restaurante.restaurante,
-	}
-
+	let restaurante = req.body.restaurante
 	if (!restaurante) 
 	{
 		res.status(404).json(
@@ -80,18 +75,17 @@ function salvaRestaurante(req,res)
 			dadosRestauranteCriado = restauranteCriado
 			dataContext.Restaurante.create(
 			{
-				nomeDoPrato			: prato.nomeDoPrato,
-				preco 				: prato.preco,
-				restauranteId		: dadosRestauranteCriado.id
+				restaurante			: restaurante.restaurante
+
 			}, {transaction : t})
 		})
 	})
-	.then(function(novoPrato)
+	.then(function(novoRestaurante)
 	{
 		res.status(201).json(
 		{
 			sucesso: true, 
-			data: novoPrato
+			data: novoRestaurante
 		})
 	}).catch(function(erro)
 	{
@@ -99,12 +93,12 @@ function salvaRestaurante(req,res)
 		res.status(409).json(
 		{ 
 			sucesso: false,
-			msg: "Falha ao incluir o novo prato" 
+			msg: "Falha ao incluir o novo restaurante" 
 		});
 	})
 }
 
-function excluiPrato(req,res)
+function excluiRestaurante(req,res)
 {
 	if (!req.params.id) 
 	{
@@ -117,22 +111,22 @@ function excluiPrato(req,res)
 	}
 	dataContext.conexao.transaction(function(t) 
 	{
-		let prato
-		dataContext.Prato.findById(req.params.id, {transaction : t})
-		.then(function(pratoEncontrado)
+		let restaurante
+		dataContext.Restaurante.findById(req.params.id, {transaction : t})
+		.then(function(restauranteEncontrado)
 		{
-			if (!pratoEncontrado) 
+			if (!restauranteEncontrado) 
 			{
 				res.status(404).json(
 				{
 					sucesso: false,
-					msg: "Prato não encontrado."
+					msg: "Restaurante não encontrado."
 				})
 				return;
 			}
-			prato = pratoEncontrado
-			pratoEncontrada.destroy({transaction : t})
-			return dataContext.Restaurante.findById(prato.restauranteId, {transaction : t})
+			restaurante = restauranteEncontrado
+			restauranteEncontrada.destroy({transaction : t})
+			return dataContext.Restaurante.findById(restaurante.restauranteId, {transaction : t})
 		})
 		.then(function(restauranteRetornado) 
 		{
@@ -153,12 +147,12 @@ function excluiPrato(req,res)
 		res.status(409).json(
 		{ 
 			sucesso: false,
-			msg: "Falha ao excluir o prato" 
+			msg: "Falha ao excluir o restaurante" 
 		});	
 	})
 }
 
-function atualizaPrato(req,res)
+function atualizaRestaurante(req,res)
 {
 	if (!req.params.id) 
 	{
@@ -241,7 +235,7 @@ module.exports =
 	//Quando for consumir irá pegar os nomes da primeira tabela
     carregaTudo  	: carregaTudo,
     carregaPorId 	: carregaPorId,
-    salva 			: salvaPrato,
-    exclui 			: excluiPrato,
-	atualiza 		: atualizaPrato,  
+    salva 			: salvaRestaurante,
+    exclui 			: excluiRestaurante,
+	atualiza 		: atualizaRestaurante,  
 }

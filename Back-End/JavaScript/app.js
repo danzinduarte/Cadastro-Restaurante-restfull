@@ -1,22 +1,17 @@
-//Importar um módulo sequelize usando require('sequelize'). Assim Sequelize representa uma variável de referência ao Sequelize.
-//Configurações
-let express   = require('express'),
- path         = require('path'),
- logger       = require('morgan'),
+let express = require('express'),
+ path = require('path'),
+ logger = require('morgan'),
  cookieParser = require('cookie-parser'),
- bodyParser   = require('body-parser');
+ bodyParser = require('body-parser');
 
-const rota                = require('./rotas/rota'),
-      rotaAutenticacao    = require('./seguranca/autenticacao.rota'),
-      auth                = require('./seguranca/autenticacao')
+let rota = require('./rotas/rota');
 
 
-const app = express();
+let app = express();
 
 
 // uncomment after placing your favicon in /public
 app.use(logger('dev'));
-//Transforma tudo que vem em JSON
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -30,25 +25,16 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   res.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
-  //Dois métodos POST executando em seguida
-  //Continua executando a API
   next();
 });
 
-/// Funcao de login não pode ser validada pelo "validaRequisicao"
-app.use(rotaAutenticacao)
 
-///A partir daqui, toda requisição deve estar "autorizada"
-//App servidor
-//Vai ser executando antes da rota
-//Antes de executar a rota ele valida, continua se lee tive autorizado e caso esteja ok o Next faz com que ele continue a executação
-app.use(auth.validaRequisicao)
 
 
 /*
-Declaração de mapeamento das rotas da API
-*/
-app.use('/api', auth.validaCredenciais, rota);  
+  Declaracao de mapeamento das rotas da api
+*/ 
+app.use('/api', rota);
 
 
 

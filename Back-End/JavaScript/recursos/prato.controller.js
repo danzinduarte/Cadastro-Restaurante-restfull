@@ -1,29 +1,26 @@
-const dataContext = require('../dao/dao'),
+const dataContext = require('../dao/dao');
 
 function carregaTudo(req,res) 
 {
-	if (req.query.prato) 
+	if (req.query.where) 
 	{
 		return dataContext.Prato.findAll({
-			where :
-			{
-				Id : req.query.prato
-			},
-			order : 'id'
-		}).then(function(pratos)
-		{
-			pratos = pratos.map(function(pratosRetornados) 
-			{
-				pratosRetornados = pratosRetornados.get({plain : true})
-				delete pratosRetornados.restaurante_id
-				return pratosRetornados
-			})	
-			res.status(200).json(
-			{
-				sucesso:true,
-				data: pratos
-			})
-		})
+			include : [           
+                {
+                    model : dataContext.Restaurante
+                }
+            ],          
+			order : 'id',
+			where : {	
+                Id : req.query.where
+            }
+        }).then(function(pratos){
+            res.status(200).json({
+                sucesso : true,
+                data : pratos
+            })
+        })
+    
 	}
 }
 

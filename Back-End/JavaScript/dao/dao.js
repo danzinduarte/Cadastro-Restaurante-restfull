@@ -14,7 +14,7 @@ let Sequelize   = require('sequelize'),
 
     {
         host: '127.0.0.1',
-        port:'5432',          //A porta do banco de dados relacional.
+        port:5432,          //A porta do banco de dados relacional.
         dialect: 'postgres',   //O dialeto do banco de dados ao qual você está se conectando. Um dos mysql, postgres, sqlite e mssql.
         logging: false,     //Uma função que registra consultas sql ou false para nenhum log
         isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.READ_COMMITTED    //	Definir o nível de isolamento de transação padrão. Veja Sequelize.Transaction.ISOLATION_LEVELS as opções possíveis.    

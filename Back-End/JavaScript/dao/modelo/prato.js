@@ -56,7 +56,7 @@ module.exports.initRelations = function() {
     var Restaurante         = dataContext.Restaurante;
  
 
-    Patro.belongsTo(Restaurante, {
+    Prato.belongsTo(Restaurante, {
         foreignKey: 'restaurante_id',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
