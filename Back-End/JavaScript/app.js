@@ -7,6 +7,8 @@ let express   = require('express'),
  bodyParser   = require('body-parser');
 
 const rota                = require('./rotas/rota'),
+      rotaAutenticacao    = require('./seguranca/autenticacao.rota'),
+      auth                = require('./seguranca/autenticacao')
 
 
 const app = express();
@@ -35,6 +37,12 @@ app.use(function(req, res, next) {
 
 /// Funcao de login não pode ser validada pelo "validaRequisicao"
 app.use(rotaAutenticacao)
+
+///A partir daqui, toda requisição deve estar "autorizada"
+//App servidor
+//Vai ser executando antes da rota
+//Antes de executar a rota ele valida, continua se lee tive autorizado e caso esteja ok o Next faz com que ele continue a executação
+app.use(auth.validaRequisicao)
 
 
 /*
