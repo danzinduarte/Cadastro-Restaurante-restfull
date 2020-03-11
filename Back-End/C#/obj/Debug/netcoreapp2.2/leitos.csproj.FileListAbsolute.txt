@@ -40,3 +40,19 @@ C:\Users\tx-sup-07\Documents\estudos\cadastro de restaurante\Back-End\obj\Debug\
 C:\Users\tx-sup-07\Documents\estudos\cadastro de restaurante\Back-End\obj\Debug\netcoreapp2.2\leitos.RazorTargetAssemblyInfo.cache
 C:\Users\tx-sup-07\Documents\estudos\cadastro de restaurante\Back-End\obj\Debug\netcoreapp2.2\leitos.dll
 C:\Users\tx-sup-07\Documents\estudos\cadastro de restaurante\Back-End\obj\Debug\netcoreapp2.2\leitos.pdb
+C:\Users\Danilo\Documents\GitHub\Cadastro-Restaurante-restfull\Back-End\C#\bin\Debug\netcoreapp2.2\appsettings.Development.json
+C:\Users\Danilo\Documents\GitHub\Cadastro-Restaurante-restfull\Back-End\C#\bin\Debug\netcoreapp2.2\appsettings.json
+C:\Users\Danilo\Documents\GitHub\Cadastro-Restaurante-restfull\Back-End\C#\bin\Debug\netcoreapp2.2\Properties\launchSettings.json
+C:\Users\Danilo\Documents\GitHub\Cadastro-Restaurante-restfull\Back-End\C#\bin\Debug\netcoreapp2.2\leitos.deps.json
+C:\Users\Danilo\Documents\GitHub\Cadastro-Restaurante-restfull\Back-End\C#\bin\Debug\netcoreapp2.2\leitos.runtimeconfig.json
+C:\Users\Danilo\Documents\GitHub\Cadastro-Restaurante-restfull\Back-End\C#\bin\Debug\netcoreapp2.2\leitos.runtimeconfig.dev.json
+C:\Users\Danilo\Documents\GitHub\Cadastro-Restaurante-restfull\Back-End\C#\bin\Debug\netcoreapp2.2\leitos.dll
+C:\Users\Danilo\Documents\GitHub\Cadastro-Restaurante-restfull\Back-End\C#\bin\Debug\netcoreapp2.2\leitos.pdb
+C:\Users\Danilo\Documents\GitHub\Cadastro-Restaurante-restfull\Back-End\C#\obj\Debug\netcoreapp2.2\leitos.csprojAssemblyReference.cache
+C:\Users\Danilo\Documents\GitHub\Cadastro-Restaurante-restfull\Back-End\C#\obj\Debug\netcoreapp2.2\leitos.RazorAssemblyInfo.cache
+C:\Users\Danilo\Documents\GitHub\Cadastro-Restaurante-restfull\Back-End\C#\obj\Debug\netcoreapp2.2\leitos.RazorAssemblyInfo.cs
+C:\Users\Danilo\Documents\GitHub\Cadastro-Restaurante-restfull\Back-End\C#\obj\Debug\netcoreapp2.2\leitos.AssemblyInfoInputs.cache
+C:\Users\Danilo\Documents\GitHub\Cadastro-Restaurante-restfull\Back-End\C#\obj\Debug\netcoreapp2.2\leitos.AssemblyInfo.cs
+C:\Users\Danilo\Documents\GitHub\Cadastro-Restaurante-restfull\Back-End\C#\obj\Debug\netcoreapp2.2\leitos.RazorTargetAssemblyInfo.cache
+C:\Users\Danilo\Documents\GitHub\Cadastro-Restaurante-restfull\Back-End\C#\obj\Debug\netcoreapp2.2\leitos.dll
+C:\Users\Danilo\Documents\GitHub\Cadastro-Restaurante-restfull\Back-End\C#\obj\Debug\netcoreapp2.2\leitos.pdb

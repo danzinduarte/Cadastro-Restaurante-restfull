@@ -2,7 +2,7 @@
 
 module.exports = function(sequelize, DataTypes) {
     return sequelize.define('Restaurante', {
-        Id: {
+        id: {
             type: DataTypes.INTEGER,
             field: 'id',
             allowNull: false,
@@ -10,14 +10,15 @@ module.exports = function(sequelize, DataTypes) {
             autoIncrement: true,
             comment: 'Chave primaria'
         },
-        NomeDoRestaurante: {
+        nomeDoRestaurante: {
             type: DataTypes.STRING(80),
             field: 'restaurante',
             allowNull: false,
             comment: 'Nome do restaurante'
         }
         
-    }, {
+    }, 
+    {
         schema: 'public',
         tableName: 'restaurante',
         timestamps: false,

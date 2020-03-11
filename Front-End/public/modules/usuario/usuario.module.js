@@ -13,42 +13,36 @@
       
     .state('usuario', {
         url: '/usuario',
-        templateUrl: './modules/usuario/views/usuario-lista.html',
-        controller: 'UsuarioListaController',
+        templateUrl: './modules/usuario/views/usuario.html',
+        controller: 'UsuarioController',
         controllerAs: 'vm',
         params: {
             title: "Usuarios"
         }
     })
     .state('usuario-novo', {
-        url: '/usuario/novo',
-        templateUrl: './modules/usuario/views/usuario-novo.html',
-        controller: 'UsuarioController',
-        controllerAs: 'vm',
-        params: {
-            title: "Cadastro de Usuario"
-        },resolve : {
-            usuarioId : function($stateParams){
-                console.log('Modulo: ' + $stateParams.id)
-                return $stateParams.id;
-            }  
-        }      
+      url: '/usuario/novo',
+      templateUrl: './modules/usuario/views/usuario-novo.html',
+      controller: 'NovoUsuarioController',
+      controllerAs: 'vm',
+      params: {
+          title: "Novo Usuario"
+      }        
     })
-
     .state('usuario-editar', {
-        url: '/usuario/usuario-editar/:id',
-        templateUrl: '/modules/usuario/views/usuario-editar.html',
-        controller: 'UsuarioController',
-        controllerAs: 'vm',
-        params: {
-            title: "Editar Usuario"
-        },
-        resolve : {
-            usuarioId : function($stateParams){
-                console.log('Modulo: ' + $stateParams.id)
-                return $stateParams.id;
-            }    
-        }
+      url: '/usuario/usuario-editar/:id',
+      templateUrl: '/modules/usuario/views/usuario-editar.html',
+      controller: 'EditaUsuarioController',
+      controllerAs: 'vm',
+      params: {
+          title: "Editar Usuario"
+      },
+      resolve : {
+          usuarioId : function($stateParams){
+              return $stateParams.id;
+          }  
+      }        
     })
   }
+  
 })()

@@ -1,0 +1,13 @@
+<div layout="row">
+    <div ng-if="vm.dataset.length == 0" class="span">
+    <span>Não existe setores cadastrados no momento</span>
+</div>
+    <md-card width="50" class="row-card md-whiteframe-80dp" ng-repeat="setores in vm.dataset" >
+        <div layout="column" layout-align="center center">  
+            <img ng-src="/assets/img/door.svg" class="md-avatar icon-lista" ng-click="vm.abrirSetor()" alt="Setor"/>                   
+            <span class="font-size-18 texto-cinza-medio negrito"> {{setores.nome_Setor}}</span>
+        </div>
+    </md-card>
+</div>
+
+

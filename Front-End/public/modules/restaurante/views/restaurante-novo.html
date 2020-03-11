@@ -1,0 +1,28 @@
+<div layout="column">
+    <md-toolbar>
+        <div class="md-toolbar-tools" style="background-color: lightblue;">
+            <h2>Cadastro de Restaurante</h2>
+            <span flex></span>
+        </div>
+    </md-toolbar>
+    <form name="vm.form">
+        <md-content class="md-padding"></md-content>
+            <h1 class="md-display-1">Dados</h1>
+            <div layout="row">
+                <md-input-container flex flex>
+                    <label>Nome Do Restaurante</label>
+                    <input required ng-model="vm.nomeDoRestaurante" name="nomeDoRestaurante" minlength ="3">
+                    <div ng-messages="vm.form.nomeDoRestaurante.$error">
+                        <div ng-message="required">Campo obrigatório.</div>
+                        <div ng-message="minlength">No mínimo 3 caracteres.</div>
+                    </div>
+                </md-input-container flex>
+                </md-content>
+                    <div layout="row" layout-align="end">
+                        <md-button class="md-warn md-raised" ng-click="vm.cancelar()" >
+                            Cancelar
+                        </md-button>
+                        <md-button class="md-raised md-primary" type="submit" ng-click="vm.salvar(vm.nomeDoRestaurante)">Cadastrar</md-button>
+                    </div>
+        </div>
+    </form>

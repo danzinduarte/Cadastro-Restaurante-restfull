@@ -1,0 +1,54 @@
+<md-toolbar>
+    <md-fab-actions class="md-toolbar-tools">
+        
+        <md-button class="md-icon-button" ng-click="vm.novoUsuario()">
+            <md-tooltip md-direction="right">Novo Usuario</md-tooltip>
+            <md-icon md-svg-src="assets/img/plus.svg"></md-icon>
+        </md-button>
+            
+    </md-fab-actions>
+</md-toolbar>
+<div layout="column">
+    
+    <div ng-if="vm.dataset.length == 0" class="span">
+        <span>Não existe usuarios cadastrados no momento</span>
+    </div>
+    <md-card class="row-card md-whiteframe-20dp" ng-repeat="usuarios in vm.dataset">
+        <div layout="row">
+           
+            <img ng-src="/assets/img/network.svg" class="md-avatar icon-lista" alt="Usuario"/>
+  
+            <div layout="column" flex>
+                <div layout="row">
+                   
+                    <span flex></span>                 
+                  
+                    <md-menu>
+                        <md-button class="md-icon-button" ng-click="$mdMenu.open($event)">
+                            <img src="/assets/img/mote_vert.png" >                      
+                        </md-button>
+                        <md-menu-content width="3">
+                            <md-menu-item>
+                                <md-button ng-click="vm.editaUsuario(usuarios.id)"> Editar </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button ng-click="vm.excluiUsuario($event,usuarios)"> Excluir Usuario</md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+  
+                </div>
+  
+                <div layout="column" layout-align="start start">                     
+                    <span class="font-size-18 texto-cinza-medio negrito">Nome: {{usuarios.nome}}</span>
+                    <span class="font-size-16 texto-cinza-claro negrito">Senha: {{usuarios.senha}}</span>
+                    <span class="font-size-16 texto-cinza-claro negrito">Tipo: {{usuarios.tipo}}</span>
+                    <span class="font-size-16 texto-cinza-claro negrito">Email: {{usuarios.email}}</span>
+                </div>
+            </div>
+        </div>    
+    </md-card>
+    
+</div>
+
+

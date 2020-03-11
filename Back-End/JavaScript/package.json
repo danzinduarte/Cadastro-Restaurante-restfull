@@ -3,7 +3,7 @@
   "version": "0.0.1alpha",
   "private": false,
   "scripts": {
-    "start": "node ./www"
+    "start": "nodemon ./www"
   },
   "dependencies": {
     "atob": "^2.0.3",

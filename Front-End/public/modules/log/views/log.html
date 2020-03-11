@@ -1,0 +1,26 @@
+<md-toolbar>
+</md-toolbar>
+<div layout="column">
+    
+    <div ng-if="vm.dataset.length == 0" class="span">
+        <span>Não existe logs cadastrados no momento</span>
+    </div>
+    <md-card class="row-card md-whiteframe-20dp" ng-repeat="logs in vm.dataset">
+        <div layout="row">
+           
+            <img ng-src="/assets/img/network.svg" class="md-avatar icon-lista" alt="Log"/>
+  
+            <div layout="column" flex>  
+                <div layout="column" layout-align="start start">                     
+                    <span class="font-size-18 texto-cinza-medio negrito">Nome: {{logs.usuario_Logado}}</span>
+                    <span class="font-size-16 texto-cinza-claro negrito">Método: {{logs.rotina}}</span>
+                    <span class="font-size-16 texto-cinza-claro negrito">Ação: {{logs.acao}}</span>
+                    <span class="font-size-16 texto-cinza-claro negrito">Horário: {{logs.data_Hora}}</span>
+                </div>
+            </div>
+        </div>    
+    </md-card>
+    
+</div>
+
+

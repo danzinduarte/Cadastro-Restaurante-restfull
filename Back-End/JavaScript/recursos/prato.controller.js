@@ -2,26 +2,30 @@ const dataContext = require('../dao/dao');
 
 function carregaTudo(req,res) 
 {
-	if (req.query.where) 
+	return dataContext.Prato.findAll(
 	{
-		return dataContext.Prato.findAll({
-			include : [           
-                {
-                    model : dataContext.Restaurante
-                }
-            ],          
-			order : 'id',
-			where : {	
-                Id : req.query.where
-            }
-        }).then(function(pratos){
-            res.status(200).json({
-                sucesso : true,
-                data : pratos
-            })
+		include : [           
+        {
+        	model : dataContext.Restaurante
+        }],
+		order : ['id']
+	}).then(function(pratos)
+	{
+    	res.status(200).json(
+		{
+        	sucesso : true,
+            data : pratos
         })
-    
-	}
+    }).catch(function(err)
+	{
+		res.status(400).json(
+		{ 	
+			sucesso: false,
+			data : [],
+			erros : err
+		});
+		return err;	
+	})
 }
 
 function carregaPorId(req,res) 
@@ -100,7 +104,6 @@ function salvaPrato(req,res)
 		})
 	}).catch(function(erro)
 	{
-		console.log(erro);
 		res.status(409).json(
 		{ 
 			sucesso: false,

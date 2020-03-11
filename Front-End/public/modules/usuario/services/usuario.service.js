@@ -8,31 +8,27 @@ angular.module('app.usuario')
         return ds.$get()
     }
 
-    usuarioFactory.getById = function(usuarioId) {
+    usuarioFactory.getUsuario = function(usuarioId) {
         
         var ds = new api.usuario();
         ds.id = usuarioId;
         return ds.$get()
     }
-    
-    usuarioFactory.save = function(usuarioModel){
-        var ds = new api.usuario();
-        ds.usuario = usuarioModel;
-        ds.id = usuarioModel.id
-
-        if (usuarioModel.id) {
-            return ds.$update()											
-		} else {
-			return ds.$save()               				
-		}
-        
-    }
-
+   
     usuarioFactory.delete = function(usuarioId){
         var ds = new api.usuario();
         ds.id = usuarioId
 
         return ds.$delete({id : usuarioId})
+    }
+
+    usuarioFactory.save = function(nome, email, senha){
+        var ds = new api.usuario();
+            ds.nome      = nome
+            ds.email     = email
+            ds.senha     = senha
+            return ds.$save()               				
+                 				        
     }
 
     return usuarioFactory;

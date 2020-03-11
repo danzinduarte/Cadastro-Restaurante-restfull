@@ -2,28 +2,24 @@ const dataContext = require('../dao/dao');
 
 function carregaTudo(req,res) 
 {
-	if (req.query.restaurante) 
-	{
 		return dataContext.Restaurante.findAll({
-			where :
-			{
-				Id : req.query.restaurante
-			},
-			order : 'id'
 		}).then(function(restaurantes)
+	{
+    	res.status(200).json(
 		{
-			restaurantes = restaurantes.map(function(restaurantesRetornados) 
-			{
-				restaurantesRetornados = restaurantesRetornados.get({plain : true})
-				return restaurantesRetornados
-			})	
-			res.status(200).json(
-			{
-				sucesso:true,
-				data: restaurantes
-			})
-		})
-	}
+        	sucesso : true,
+            data : restaurantes
+        })
+    }).catch(function(err)
+	{
+		res.status(400).json(
+		{ 	
+			sucesso: false,
+			data : [],
+			erros : err
+		});
+		return err;	
+	})
 }
 
 function carregaPorId(req,res) 

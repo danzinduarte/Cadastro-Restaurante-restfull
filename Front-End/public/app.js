@@ -5,49 +5,49 @@ var materialApp = angular
     'ngMaterial',
     'ngResource',
     'ngMessages',
-    'materialApp',
+    'appCtrl',
     'ngStorage',
+    'app.login',  
     'app.usuario',
-    'app.login'
-
+    'app.log',
+    'app.setor',
+    'app.paciente',
+    'app.restaurante'
     
+
 ]).config(function($mdThemingProvider,$mdDateLocaleProvider,$mdAriaProvider,$httpProvider) {
   
-  $mdThemingProvider.theme('default')
-  .primaryPalette('light-blue')
-  .accentPalette('red');
+    $mdThemingProvider.theme('default')
+    .primaryPalette('indigo')
+    .accentPalette('red');
 
-  // Formata de data brasileiro
-  $mdDateLocaleProvider.formatDate = function(date) {
-      return date ? moment(date).format('DD/MM/YYYY') : null;
-  };
+    // Formata de data brasileiro
+    $mdDateLocaleProvider.formatDate = function(date) {
+        return date ? moment(date).format('DD/MM/YYYY') : null;
+    };
 
-  // Desativar os warnings de ARIA-LABEL (label para tecnologias assistivas)
-  $mdAriaProvider.disableWarnings(); 
+    // Desativar os warnings de ARIA-LABEL (label para tecnologias assistivas)
+    $mdAriaProvider.disableWarnings(); 
 
-  $httpProvider.interceptors.push(function($q, $injector, $localStorage) {
-      return {
-        'request': function (config) {
-          config.headers = config.headers || {};
-          if ($localStorage.usuarioLogado) {
-            config.headers.Authorization = 'Bearer ' + $localStorage.usuarioLogado.token;
+
+    /// Interceptador de requisicoes
+    $httpProvider.interceptors.push(function($q, $injector, $localStorage) {
+        return {
+          'request': function (config) {
+            config.headers = config.headers || {};
+            return config;
+          },
+          'responseError': function(response) {
+            switch (response.status) {
+              case 401:
+                break;                
+
+              default :
+                return $q.reject(response);
+            }
           }
+        };
+      })
 
-          return config;
-        },
-        'responseError': function(response) {
-          switch (response.status) {
-            case 401:
-              var stateService = $injector.get('$state');
-              stateService.go('login');
-              toastr.error("Faça login novamente.","Token Expirado!",{progressBar:true,timeOut:3000})
-              break;                
-
-            default :
-              return $q.reject(response);
-          }
-        }
-      };
-    })
-
+    
 });

@@ -1,4 +1,4 @@
-var router = angular.module('.routes', ['ui.router']);
+var router = angular.module('materialApp.routes', ['ui.router']);
 router.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
     $urlRouterProvider.otherwise('/');
@@ -10,9 +10,10 @@ router.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/',
             templateUrl: 'home.html',
             params: {
-                title: "Siaf Leitos"
+                title: "Cadastro de Restaurante"
             }
         })
+        
 
     $locationProvider.html5Mode(true);
 
