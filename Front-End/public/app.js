@@ -7,11 +7,7 @@ var materialApp = angular
     'ngMessages',
     'appCtrl',
     'ngStorage',
-    'app.login',  
-    'app.usuario',
-    'app.log',
-    'app.setor',
-    'app.paciente',
+    'app.prato',
     'app.restaurante'
     
 

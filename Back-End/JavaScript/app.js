@@ -6,19 +6,14 @@ let express = require('express'),
 
 let rota = require('./rotas/rota');
 
-
 let app = express();
 
-
-// uncomment after placing your favicon in /public
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
-
-
 
 // Ativar CORS
 app.use(function(req, res, next) {
@@ -28,27 +23,14 @@ app.use(function(req, res, next) {
   next();
 });
 
-
-
-
-/*
-  Declaracao de mapeamento das rotas da api
-*/ 
 app.use('/api', rota);
 
-
-
-
-// Caso nao encontre o "caminho" solicitado
 app.use(function(req, res, next) {
   	var err = new Error('Não encontrado');
   	err.status = 404;
   	next(err);
 });
 
-
-// development error handler
-// will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
@@ -61,8 +43,6 @@ if (app.get('env') === 'development') {
   });
 }
 
-// production error handler
-// no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   console.log(err);
