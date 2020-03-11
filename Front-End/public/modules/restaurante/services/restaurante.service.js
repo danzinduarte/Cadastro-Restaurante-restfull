@@ -14,6 +14,17 @@ angular.module('app.restaurante')
             return ds.$save()               				
                  				        
     }
+    restauranteFactory.delete = function(restauranteId){
+        var ds = new api.restaurante();
+        ds.id = restauranteId
+        return ds.$delete({id : restauranteId})
+    }
+    restauranteFactory.getById =function(restauranteId) {
+        var ds      = new api.restaurante();
+        ds.id   = restauranteId;
+        return ds.$get();
+    }
+
     return restauranteFactory;
 
 });

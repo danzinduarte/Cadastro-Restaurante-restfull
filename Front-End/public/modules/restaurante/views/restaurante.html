@@ -2,31 +2,45 @@
     <md-fab-actions class="md-toolbar-tools">
         
         <md-button class="md-icon-button" ng-click="vm.novoRestaurante()">
-            <md-tooltip md-direction="right">Novo Restaurante</md-tooltip>
+            <md-tooltip md-direction="right">Cadastrar Restaurante</md-tooltip>
             <md-icon md-svg-src="assets/img/plus.svg"></md-icon>
         </md-button>
             
     </md-fab-actions>
 </md-toolbar>
 <div layout="column">
+    
     <div ng-if="vm.dataset.length == 0" class="span">
         <span>Não existe restaurantes cadastrados no momento</span>
     </div>
-                <div class="span" >
-                    <table class="table">
-                        <thead>
-                            <tr>Restaurantes </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="restaurantes in vm.dataset">
-                                <td> <md-icon md-svg-src="assets/img/pencil-edit-button.svg " ng-click="vm.editaRestaurante(restaurantes.id)"> Editar </md-button></td>
-                                <td> <md-icon md-svg-src="assets/img/delete.svg"  ng-click="vm.excluiRestaurante($event,restaurantes)"> Excluir</md-button></td>
-                                <td>{{restaurantes.nomeDoRestaurante}} </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                
-            
+    <md-card class="row-card md-whiteframe-20dp" ng-repeat="restaurantes in vm.dataset">
+        <div layout="row">
+            <div layout="column" flex>
+                <div layout="row">
+                   
+                    <span flex></span>                 
+                  
+                    <md-menu>
+                        <md-button class="md-icon-button" ng-click="$mdMenu.open($event)">
+                            <img src="/assets/img/mote_vert.png" >                     
+                        </md-button>
+                        <md-menu-content width="3">
+                            <md-menu-item>
+                                <md-button ng-click="vm.editaRestaurante(restaurantes.id)"> Editar </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button ng-click="vm.excluiRestaurante($event,restaurantes)"> Excluir</md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+  
+                </div>
+  
+                <div layout="column" layout-align="start start">                     
+                    <span class="font-size-18 texto-cinza-medio negrito"> Restaurante: {{restaurantes.nomeDoRestaurante}}</span>
+                    
+                </div>
+            </div>
         </div>    
     </md-card>
     

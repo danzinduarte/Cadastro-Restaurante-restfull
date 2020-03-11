@@ -29,8 +29,14 @@
             title: "Cadastro de Restaurante"
         }
     })
-  }
- 
-
-  
+    .state('restaurante-edita', {
+      url: '/restaurante-editar',
+      templateUrl: './modules/restaurante/views/restaurante-edita.html',
+      controller: 'EditaRestauranteController',
+      controllerAs: 'vm',
+      params: {
+          title: "Editar Restaurante"
+      }
+  })
+  }  
 })()

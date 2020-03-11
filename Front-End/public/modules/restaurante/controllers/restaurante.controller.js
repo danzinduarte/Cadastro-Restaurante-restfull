@@ -12,6 +12,8 @@ function RestauranteController(RestauranteService,$mdDialog, $state)
     vm.carregaRestaurantes  = carregaRestaurantes;
     vm.novoRestaurante      = novoRestaurante;
     vm.editaRestaurante     = editaRestaurante;
+    vm.excluiRestaurante    = excluiRestaurante;
+    vm.excluir              = excluir;
     
 
     function carregaRestaurantes(){
@@ -24,9 +26,9 @@ function RestauranteController(RestauranteService,$mdDialog, $state)
 		$state.go('restaurante-novo')	
     }
     function editaRestaurante(restauranteId) {
-		$state.go('restaurante-editar', {id : restauranteId})		
+		$state.go('restaurante-edita', {id : restauranteId})		
     }
-    function exclui(ev,restaurantes){
+    function excluiRestaurante(ev,restaurantes){
 		
         let confirmacao = $mdDialog.confirm()
                 .title('Aguardando confirmação')
@@ -39,6 +41,21 @@ function RestauranteController(RestauranteService,$mdDialog, $state)
         $mdDialog.show(confirmacao).then(function() {
                 vm.excluir(restaurantes.id)
         });
+    }
+    function excluir(restauranteId){
+        let sucesso = function(resposta){			
+            if (resposta.sucesso) {
+                toastr.info('Restaurante excluido com sucesso :)');
+            }
+            carregaRestaurantes();
+        }
+
+        let erro = function(resposta){	
+            toastr.warning("Ocorreu um erro ao excluir o restaurante!")
+            $state.go('restaurante')	
+        }
+
+        RestauranteService.delete(restauranteId).then(sucesso,erro) 
     }
 
 
