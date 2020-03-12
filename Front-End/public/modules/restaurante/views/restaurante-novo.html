@@ -1,26 +1,28 @@
-<div layout="column">
-    <md-toolbar>
-        <div class="md-toolbar-tools" style="background-color: lightblue;">
-            <h2>Cadastro de Restaurante</h2>
-            <span flex></span>
-        </div>
-    </md-toolbar>
-    <form name="vm.form">
-        <md-content class="md-padding"></md-content>
+<form ng-cloak  name="vm.form">
+    <div layout="column">
+        <md-toolbar>
+            <div class="md-toolbar-tools" style="background-color: lightblue;">
+                <h2>Cadastro de Restaurante</h2>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+            <md-content class="md-padding"></md-content>
             <div layout="row">
                 <md-input-container flex flex>
                     <label>Nome Do Restaurante</label>
-                    <input required ng-model="vm.nomeDoRestaurante" name="nomeDoRestaurante" minlength ="3">
+                    <input required ng-model="vm.dataset.nomeDoRestaurante" name="nomeDoRestaurante" minlength ="3">
                     <div ng-messages="vm.form.nomeDoRestaurante.$error">
                         <div ng-message="required">Campo obrigatório.</div>
                         <div ng-message="minlength">No mínimo 3 caracteres.</div>
                     </div>
                 </md-input-container flex>
             </div>
-            <div layout="row" layout-align="start">
-                <md-button class="md-warn md-raised" ng-click="vm.cancelar()" >
-                    Cancelar
-                </md-button>
-                <md-button class="md-raised md-primary" type="submit" ng-click="vm.salvar(vm.nomeDoRestaurante)">Cadastrar</md-button>
-            </div>
-    </form>
+            <div layout="row" layout-align="center center">
+                <md-button class="md-warn " ng-click= vm.cancelar()>Cancelar</md-button>
+                <span flex></span>
+                <md-button type="submit" ng-click="vm.form.$valid && vm.salvaRestaurante()" class="md-fab md-primary" aria-label="Salvar Dados">
+                <md-icon md-svg-src="assets/img/save.svg"></md-icon>
+            </md-button>
+        </div>
+    </div>
+</form>

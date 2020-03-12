@@ -34,13 +34,13 @@ namespace Api.repository
 
         public Pratos Find(int id)
         {
-           return _contexto.pratos
-           .FirstOrDefault (u => u.Id == id);
+           return _contexto.pratos.FirstOrDefault (u => u.Id == id);
         }
 
         public IEnumerable<Pratos> GetAll()
         {
             return _contexto.pratos
+            .AsNoTracking()
             .ToList();
         }
 

@@ -1,27 +1,56 @@
 angular.module('app.restaurante')
 .controller('NovoRestauranteController', NovoRestauranteController);
 
-function NovoRestauranteController(RestauranteService,$state)
+function NovoRestauranteController(RestauranteService, $state, restauranteId)
 {
-    vm           = this
-    vm.salvar    = salvar
-    vm.cancelar  = cancelar
+    vm                     = this;
+    vm.salvaRestaurante    = salvaRestaurante;
+    vm.cancelar            = cancelar;
 
-        
-    function salvar(nomeDoRestaurante) {
+    function init(){
 
-        if (vm.form.$invalid) {
+        if (restauranteId) {
+            RestauranteService.getById(restauranteId).then(function(restauranteModel){
+                vm.dataset = restauranteModel.data
+            })
+        }
+	}
+
+    init()	
+
+    function salvaRestaurante() 
+    {
+        if (vm.form.$invalid) 
+        {
             toastr.error("Erro! Revise seus dados e tente novamente.","ERRO")
             return
         } 
-
-        RestauranteService.save(nomeDoRestaurante)
-            .then(function(resposta) {
-                if (resposta.sucesso) {
-                    toastr.success("Dados inseridos com sucesso","SUCESSO")
+       var restauranteModel = {},
+        restaurante = {
+            nomeDoRestaurante : vm.dataset.nomeDoRestaurante
+        }
+        restauranteModel = restaurante;
+        
+        RestauranteService.save(restauranteModel)
+        .then(function(resposta) 
+        {
+            if (resposta.sucesso) 
+            {	
+                if (restauranteId) 
+                {
+                    toastr.info("Restaurante atualizado com êxito :)","SUCESSO")
                 }
-                $state.go("restaurante")
-            })
+                else 
+                {
+                    toastr.success("Restaurante incluído com êxito :)","SUCESSO")
+                }
+                $state.go('restaurante')
+            }
+        })
+        .catch(function(error){
+            console.log(error)
+            toastr.error("Erro! Revise seus dados e tente novamente.","ERRO")
+        })
     }
     function cancelar() {
         $state.go('restaurante')

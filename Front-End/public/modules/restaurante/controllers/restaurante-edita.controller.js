@@ -1,10 +1,9 @@
 angular.module('app.restaurante')
 .controller('EditaRestauranteController', EditaRestauranteController);
 
-function EditaRestauranteController(RestauranteService, restauranteId,$state)
+function EditaRestauranteController(RestauranteService, restauranteId, $state)
 {
     vm = this;
-    
     vm.dataset = {}
 
     function init(){
@@ -21,32 +20,43 @@ function EditaRestauranteController(RestauranteService, restauranteId,$state)
     vm.salvaRestaurante    = salvaRestaurante;
     vm.cancelar            = cancelar;
 
-	function salvaRestaurante(){
-
-        if (vm.form.$invalid) {
+    function salvaRestaurante() 
+    {
+        if (vm.form.$invalid) 
+        {
             toastr.error("Erro! Revise seus dados e tente novamente.","ERRO")
             return
         } 
-        var restauranteModel = {}
-        restauranteModel.id    = restauranteId
 
+       var restauranteModel = {},
+       restaurante = {
+           nomeDoRestaurante : vm.dataset.nomeDoRestaurante
+       }
+        
+        restauranteModel = restaurante; 
+
+        restauranteModel.id = restauranteId
+        
         RestauranteService.save(restauranteModel)
-		.then(function(resposta){
-             if (resposta.sucesso) {				
-                if (restauranteId) {
+        .then(function(resposta) 
+        {
+            if (resposta.sucesso) 
+            {	
+                if (restauranteId) 
+                {
                     toastr.info("Restaurante atualizado com êxito :)","SUCESSO")
                 }
-                else {
+                else 
+                {
                     toastr.success("Restaurante incluído com êxito :)","SUCESSO")
                 }
-
                 $state.go('restaurante')
             }
-		})
-		.catch(function(error){
+        })
+        .catch(function(error){
             console.log(error)
             toastr.error("Erro! Revise seus dados e tente novamente.","ERRO")
-		})
+        })
     }
     function cancelar() {
         $state.go('restaurante')

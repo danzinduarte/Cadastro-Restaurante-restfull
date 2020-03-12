@@ -42,7 +42,7 @@ namespace Api.repository
             return _contexto.restaurantes
             .AsNoTracking()
             .ToList();
-        }
+        }   
 
         public void Remove(int id)
         {

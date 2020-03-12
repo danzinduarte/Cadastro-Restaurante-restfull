@@ -1,32 +1,28 @@
-<div layout="column">
-    <md-toolbar>
-        <div class="md-toolbar-tools" style="background-color: lightblue;">
-            <h2>Editar Restaurante</h2>
-            <span flex></span>
-        </div>
-    </md-toolbar>
-        
-    
-        <md-content class="md-padding">
-            <div layout="row">
-                <md-input-container flex>
-                    <label>Nome</label>
-                    <input name="nome" ng-model="vm.dataset.NomeDoRestaurante" type="text" ng-required="true">        
-                </md-input-container flex>
-            </div>   
-        </md-content>    
-    
-        </md-content>
-        <md-dialog-actions layout="row">
-          
-            <div>
-                <center>
+<form ng-cloak name="vm.form">
+    <div layout="column">
+        <md-toolbar>
+            <div class="md-toolbar-tools" style="background-color: lightblue;">
+                <h2>Editar Restaurante</h2>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+            <md-content class="md-padding">
+                <div layout="row">
+                    <md-input-container flex>
+                        <label>NomeDoRestaurante</label>
+                        <input ng-model="vm.dataset.nomeDoRestaurante" type="text" name="nomeDoRestaurante" ng-required="true">        
+                    </md-input-container flex>
+                </div>   
+            </md-content>    
+            <md-dialog-actions layout="row">
+            
+                <div layout="row" layout-align="center center">
                     <md-button type="reset" class="md-warn">Limpar</md-button>
-                    <span flex></span>
-                    <md-button type="submit" ng-click="vm.form.$valid && vm.salvaRestaurante()" class="md-fab md-primary" aria-label="Salvar Dados">
-                    <md-icon md-svg-src="assets/img/save.svg"></md-icon>
+                      <span flex></span>
+                        <md-button type="submit" ng-click="vm.form.$valid && vm.salvaRestaurante()" class="md-fab md-primary" aria-label="Salvar Dados">
+                          <md-icon md-svg-src="assets/img/save.svg"></md-icon>
                     </md-button>
-                </center>
-                </div>
-        </md-dialog-actions>    
-</div>
+                  </div>
+            </md-dialog-actions>    
+    </div>
+</form>

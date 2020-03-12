@@ -3,23 +3,23 @@ angular.module('app.restaurante')
 
 function RestauranteController(RestauranteService,$mdDialog, $state)
 {
-    vm = this
-    function init(){
-        carregaRestaurantes()
-    }
-    init ()      
-    
+    vm = this;
     vm.carregaRestaurantes  = carregaRestaurantes;
     vm.novoRestaurante      = novoRestaurante;
     vm.editaRestaurante     = editaRestaurante;
     vm.excluiRestaurante    = excluiRestaurante;
     vm.excluir              = excluir;
-    
+
+    function init(){
+        carregaRestaurantes()
+    }
+    init ()      
+      
 
     function carregaRestaurantes(){
-        RestauranteService.getAll().then(function(resposta){
-            vm.dataset = resposta.data
-           
+        RestauranteService.getAll().then(function(restaurantes){
+            vm.dataset = restaurantes.data
+            return vm.dataset
         })
     } 
     function novoRestaurante(){
@@ -28,6 +28,7 @@ function RestauranteController(RestauranteService,$mdDialog, $state)
     function editaRestaurante(restauranteId) {
 		$state.go('restaurante-edita', {id : restauranteId})		
     }
+    
     function excluiRestaurante(ev,restaurantes){
 		
         let confirmacao = $mdDialog.confirm()

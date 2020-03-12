@@ -18,6 +18,12 @@
         controllerAs: 'vm',
         params: {
             title: "Novo Restaurante"
+        },
+        resolve : {
+            restauranteId : function($stateParams){
+                console.log('Modulo: ' + $stateParams.id)
+                return $stateParams.id;
+            }    
         }
     })
     .state('restaurante', {
@@ -26,16 +32,23 @@
         controller: 'RestauranteController',
         controllerAs: 'vm',
         params: {
-            title: "Cadastro de Restaurante"
+            title: "Cadastro de Restaurante",
+            
         }
     })
     .state('restaurante-edita', {
-      url: '/restaurante-editar',
-      templateUrl: './modules/restaurante/views/restaurante-edita.html',
+      url: '/restaurante/restaurante-edita/:id',
+      templateUrl: '/modules/restaurante/views/restaurante-edita.html',
       controller: 'EditaRestauranteController',
       controllerAs: 'vm',
       params: {
-          title: "Editar Restaurante"
+          title: "Editar Restaurante",
+      },
+      resolve : {
+        restauranteId : function($stateParams){
+              console.log('Modulo: ' + $stateParams.id)
+              return $stateParams.id;
+          }    
       }
   })
   }  
