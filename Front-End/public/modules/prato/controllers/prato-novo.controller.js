@@ -4,6 +4,7 @@ angular.module('app.prato')
 function NovoPratoController(PratoService,$state, pratoId)
 {
     vm              = this;
+    vm.dataset = {}
     vm.salvaPrato   = salvarPrato;
     vm.cancelar     = cancelar;
 
@@ -46,7 +47,7 @@ function NovoPratoController(PratoService,$state, pratoId)
                 {
                     toastr.success("Prato incluído com êxito :)","SUCESSO")
                 }
-                $state.go('restaurante')
+                $state.go('prato')
             }
         })
         .catch(function(error){

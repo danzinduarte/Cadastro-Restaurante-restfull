@@ -17,7 +17,7 @@ function PratoController(PratoService,$mdDialog, $state)
 
     function carregaPratos(){
         PratoService.getAll().then(function(pratos){
-            vm.dataset = restaurantes.data
+            vm.dataset = pratos.data
             return vm.dataset
            
         })

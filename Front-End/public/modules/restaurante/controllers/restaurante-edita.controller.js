@@ -5,6 +5,8 @@ function EditaRestauranteController(RestauranteService, restauranteId, $state)
 {
     vm = this;
     vm.dataset = {}
+    vm.salvaRestaurante    = salvaRestaurante;
+    vm.cancelar            = cancelar;
 
     function init(){
 
@@ -16,9 +18,6 @@ function EditaRestauranteController(RestauranteService, restauranteId, $state)
 	}
 
     init()	
-  
-    vm.salvaRestaurante    = salvaRestaurante;
-    vm.cancelar            = cancelar;
 
     function salvaRestaurante() 
     {
@@ -34,7 +33,6 @@ function EditaRestauranteController(RestauranteService, restauranteId, $state)
        }
         
         restauranteModel = restaurante; 
-
         restauranteModel.id = restauranteId
         
         RestauranteService.save(restauranteModel)
