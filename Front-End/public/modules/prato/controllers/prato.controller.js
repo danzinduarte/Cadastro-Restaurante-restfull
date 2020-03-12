@@ -4,21 +4,21 @@ angular.module('app.prato')
 function PratoController(PratoService,$mdDialog, $state)
 {
     vm = this
-    function init(){
-        carregaPratos()
-    }
-    init ()      
-    
     vm.carregaPratos  = carregaPratos;
     vm.novoPrato      = novoPrato;
     vm.editaPrato     = editaPrato;
     vm.excluiPrato    = excluiPrato;
     vm.excluir        = excluir;
-    
+
+    function init(){
+        carregaPratos()
+    }
+    init ()         
 
     function carregaPratos(){
-        PratoService.getAll().then(function(resposta){
-            vm.dataset = resposta.data
+        PratoService.getAll().then(function(pratos){
+            vm.dataset = restaurantes.data
+            return vm.dataset
            
         })
     } 

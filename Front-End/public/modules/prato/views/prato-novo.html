@@ -24,10 +24,12 @@
                     </div>
                 </md-input-container flex>
             </div>
-            <div layout="row" layout-align="start">
-                <md-button class="md-warn md-raised" ng-click="vm.cancelar()" >
-                    Cancelar
+            <div layout="row" layout-align="start center">
+                <md-button class="md-warn " ng-click= vm.cancelar()>Cancelar
+                     <md-icon md-svg-src="assets/img/cancel.svg"></md-icon>
                 </md-button>
-                <md-button class="md-raised md-primary" type="submit" ng-click="vm.salvar(vm.nomeDoPrato, vm.preco)">Cadastrar</md-button>
+               <md-button type="submit" ng-click="vm.form.$valid && vm.salvaPratos()"  aria-label="Salvar Dados"> Salvar
+                <md-icon md-svg-src="assets/img/save.svg"></md-icon>
+                </md-button>
             </div>
     </form>

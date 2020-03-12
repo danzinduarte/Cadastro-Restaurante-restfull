@@ -18,6 +18,12 @@
         controllerAs: 'vm',
         params: {
             title: "Novo Prato"
+        },
+        resolve : {
+            pratoId : function($stateParams){
+                console.log('Modulo: ' + $stateParams.id)
+                return $stateParams.id;
+            }    
         }
     })
     .state('prato', {
@@ -30,12 +36,18 @@
         }
     })
     .state('prato-edita', {
-      url: '/prato-editar',
+      url: '/prato-editar/:id',
       templateUrl: './modules/prato/views/prato-edita.html',
       controller: 'EditPratoController',
       controllerAs: 'vm',
       params: {
           title: "Editar Prato"
+      },
+      resolve : {
+        pratoId : function($stateParams){
+              console.log('Modulo: ' + $stateParams.id)
+              return $stateParams.id;
+        }
       }
   })
   }  

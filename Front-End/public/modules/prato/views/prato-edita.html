@@ -18,15 +18,16 @@
     
         </md-content>
         <md-dialog-actions layout="row">
-          
-            <div>
-                <center>
-                    <md-button type="reset" class="md-warn">Limpar</md-button>
-                    <span flex></span>
-                    <md-button type="submit" ng-click="vm.form.$valid && vm.salvaPrato()" class="md-fab md-primary" aria-label="Salvar Dados">
-                    <md-icon md-svg-src="assets/img/save.svg"></md-icon>
-                    </md-button>
-                </center>
-                </div>
-        </md-dialog-actions>    
+            <div layout="row" layout-align="start center">
+                <md-button type="reset" class="md-warn">Limpar
+                    <md-icon md-svg-src="assets/img/eraser.svg"></md-icon>
+                </md-button>
+                <md-button class="md-warn " ng-click= vm.cancelar()>Cancelar
+                    <md-icon md-svg-src="assets/img/cancel.svg"></md-icon>
+                </md-button>
+                <md-button type="submit" ng-click="vm.form.$valid && vm.salvaPrato()"  aria-label="Salvar Dados"> Salvar
+                   <md-icon md-svg-src="assets/img/save.svg"></md-icon>
+                </md-button>
+            </div>     
+        </md-dialog-actions>   
 </div>

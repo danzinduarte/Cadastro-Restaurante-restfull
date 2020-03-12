@@ -17,12 +17,13 @@
                     </div>
                 </md-input-container flex>
             </div>
-            <div layout="row" layout-align="center center">
-                <md-button class="md-warn " ng-click= vm.cancelar()>Cancelar</md-button>
-                <span flex></span>
-                <md-button type="submit" ng-click="vm.form.$valid && vm.salvaRestaurante()" class="md-fab md-primary" aria-label="Salvar Dados">
+            <div layout="row" layout-align="start center">
+                <md-button class="md-warn " ng-click= vm.cancelar()>Cancelar
+                     <md-icon md-svg-src="assets/img/cancel.svg"></md-icon>
+                </md-button>
+               <md-button type="submit" ng-click="vm.form.$valid && vm.salvaRestaurante()"  aria-label="Salvar Dados"> Salvar
                 <md-icon md-svg-src="assets/img/save.svg"></md-icon>
-            </md-button>
-        </div>
+                </md-button>
+            </div>
     </div>
 </form>

@@ -3,15 +3,24 @@ angular.module('app.prato')
     
     var pratoFactory = {};
 
-    pratoFactory.getAll = function (){
+    pratoFactory.getAll = function (pratoId){
         var ds = new api.prato();
-        return ds.$get()
+        return ds.$get({prato : pratoId})
     }
-    pratoFactory.save = function(nomeDoPrato, preco){
+    pratoFactory.getById =function(pratoId) {
+        var ds      = new api.prato();
+        ds.id   = pratoId;
+        return ds.$get();
+    }
+    pratoFactory.save = function(pratoModel){
         var ds = new api.prato();
-            ds.nomeDoPrato      = nomeDoPrato
-            ds.preco            = preco
-            return ds.$save()               				
+            ds.nomeDoPrato      = pratoModel.nomeDoPrato;
+            ds.preco            = pratoModel.preco;
+            ds.id               = pratoModel.id;
+            if (ds.id) {
+                return ds.$update();
+            }
+                return ds.$save();                				
                  				        
     }
     pratoFactory.delete = function(pratoId){
@@ -19,12 +28,7 @@ angular.module('app.prato')
         ds.id = pratoId
         return ds.$delete({id : pratoId})
     }
-    pratoFactory.getById =function(pratoId) {
-        var ds      = new api.prato();
-        ds.id   = pratoId;
-        return ds.$get();
-    }
-
+   
     return pratoFactory;
 
 });
