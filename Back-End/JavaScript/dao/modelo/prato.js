@@ -1,14 +1,9 @@
-/*
-O propósito de "use strict" é indicar que o código deve ser executado em "modo estrito".
-Com o modo estrito, você não pode, por exemplo, usar variáveis ​​não declaradas.
-*/
+
 'use strict';
 
-//Sequelize = ORM banco relacional
-//Modelos são definidos com sequelize.define('name', {attributes}, {options}).
 module.exports = function(sequelize, DataTypes) {
     return sequelize.define('Prato', {
-        Id: {
+        id: {
             type: DataTypes.INTEGER,
             field: 'Id',
             allowNull: false,
@@ -16,29 +11,23 @@ module.exports = function(sequelize, DataTypes) {
             autoIncrement: true,
             comment: 'Chave primaria'
         },        
-        NomeDoPrato: {
+        nomeDoPrato: {
             type: DataTypes.STRING(60),
-            field: 'nome do prato',
+            field: 'NomeDoPrato',
             allowNull: false,
             comment: 'Nome do prato',
             
         },
-        Preco: {
+        preco: {
             type: DataTypes.INTEGER,
-            field: 'preco',
+            field: 'Preco',
             allowNull: false,
             comment: 'preco do prato'
-        },
-        restauranteId: {
-            type: DataTypes.INTEGER,
-            field: 'restaurante_id',
-            allowNull: false,
-            comment: 'Chave estrangeira Restaurante',
-        },
-
-    }, {
+        }
+    }, 
+    {
         schema: 'public',
-        tableName: 'prato',
+        tableName: 'Pratos',
         timestamps: false,
         name:{
             singular:'prato',
@@ -49,17 +38,5 @@ module.exports = function(sequelize, DataTypes) {
 
 module.exports.initRelations = function() {
     delete module.exports.initRelations;
-
-    
-    var dataContext         = require('../dao');
-    var Prato               = dataContext.Prato;
-    var Restaurante         = dataContext.Restaurante;
- 
-
-    Prato.belongsTo(Restaurante, {
-        foreignKey: 'restaurante_id',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-    });
 };
 

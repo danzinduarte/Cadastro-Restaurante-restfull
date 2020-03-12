@@ -2,13 +2,7 @@ const dataContext = require('../dao/dao');
 
 function carregaTudo(req,res) 
 {
-	return dataContext.Prato.findAll(
-	{
-		include : [           
-        {
-        	model : dataContext.Restaurante
-        }],
-		order : ['id']
+	return dataContext.Prato.findAll({
 	}).then(function(pratos)
 	{
     	res.status(200).json(
@@ -31,13 +25,7 @@ function carregaTudo(req,res)
 function carregaPorId(req,res) 
 {
 	return dataContext.Prato.findById(req.params.id,
-	{
-		include: 
-		[{
-				model: dataContext.Restaurante,
-		}]
-
-	}).then(function(prato)
+	{}).then(function(prato)
 	{
 		if (!prato) 
 		{
@@ -50,8 +38,6 @@ function carregaPorId(req,res)
 		}
 
 		prato = prato.get({plain : true})
-		delete prato.restaurante_id
-
         res.status(200).json({
 			sucesso: true,
 			data: prato

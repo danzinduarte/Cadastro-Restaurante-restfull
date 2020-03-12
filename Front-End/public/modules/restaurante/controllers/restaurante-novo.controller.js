@@ -29,7 +29,10 @@ function NovoRestauranteController(RestauranteService, $state, restauranteId)
         restaurante = {
             nomeDoRestaurante : vm.dataset.nomeDoRestaurante
         }
-        restauranteModel = restaurante;
+        restauranteModel = restaurante; 
+
+        restauranteModel.id = restauranteId
+       
         
         RestauranteService.save(restauranteModel)
         .then(function(resposta) 
@@ -39,6 +42,7 @@ function NovoRestauranteController(RestauranteService, $state, restauranteId)
                 if (restauranteId) 
                 {
                     toastr.info("Restaurante atualizado com êxito :)","SUCESSO")
+                    
                 }
                 else 
                 {

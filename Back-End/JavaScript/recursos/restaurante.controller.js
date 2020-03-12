@@ -3,12 +3,12 @@ const dataContext = require('../dao/dao');
 function carregaTudo(req,res) 
 {
 		return dataContext.Restaurante.findAll({
-		}).then(function(restaurantes)
+		}).then(function(restaurante)
 	{
     	res.status(200).json(
 		{
         	sucesso : true,
-            data : restaurantes
+            data : restaurante
         })
     }).catch(function(err)
 	{
@@ -24,20 +24,15 @@ function carregaTudo(req,res)
 
 function carregaPorId(req,res) 
 {
-	return dataContext.Restaurante.findById(req.params.id,
-	).then(function(restaurante)
-	{
-		if (!restaurante) 
-		{
-			res.status(404).json(
-			{
+	return dataContext.Restaurante.findById(req.params.id)
+	.then(function(restaurante){
+		if (!restaurante){
+			res.status(404).json({
 				sucesso: false,
 				msg: "Restaurante não encontrado."
 			})
 			return;
 		}
-
-		restaurante = restaurante.get({plain : true})
         res.status(200).json(
         {
 			sucesso: true,
@@ -48,7 +43,6 @@ function carregaPorId(req,res)
 
 function salvaRestaurante(req,res)
 {
-
 	let restaurante = req.body.restaurante
 	if (!restaurante) 
 	{
@@ -61,39 +55,26 @@ function salvaRestaurante(req,res)
 	}
 
 
-	dataContext.conexao.transaction(function(t) 
-	{
-
-		let dadosRestauranteCriado
-		return dataContext.Restaurante.create(restaurante, {transaction : t})
-		.then(function(restauranteCriado) 
-		{
-			dadosRestauranteCriado = restauranteCriado
-			dataContext.Restaurante.create(
-			{
-				restaurante			: restaurante.restaurante
-
-			}, {transaction : t})
+	dataContext.conexao.transaction(function(t) {
+		return dataContext.Restaurante.create({
+			nomeDoRestaurante : restaurante.nomeDoRestaurante
+		}, {transaction : t})
+	})
+	//Commit
+	.then(function(restaurante){
+		res.status(201).json({
+			sucesso: true, 
+			data: restaurante
 		})
 	})
-	.then(function(novoRestaurante)
-	{
-		res.status(201).json(
-		{
-			sucesso: true, 
-			data: novoRestaurante
-		})
-	}).catch(function(erro)
-	{
+	.catch(function(erro){
 		console.log(erro);
-		res.status(409).json(
-		{ 
+		res.status(409).json({ 
 			sucesso: false,
-			msg: "Falha ao incluir o novo restaurante" 
+			msg: "Falha ao incluir a nova pessoa" 
 		});
 	})
 }
-
 function excluiRestaurante(req,res)
 {
 	if (!req.params.id) 

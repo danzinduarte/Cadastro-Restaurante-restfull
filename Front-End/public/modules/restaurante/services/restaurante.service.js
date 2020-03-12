@@ -14,9 +14,9 @@ angular.module('app.restaurante')
     }
 
     restauranteFactory.save = function(restauranteModel){
-        var ds = new api.restaurante();
-        ds.restaurante = restauranteModel;
-        ds.id          = restauranteModel.id;
+        var ds               = new api.restaurante();
+        ds.nomeDoRestaurante = restauranteModel.nomeDoRestaurante;
+        ds.id                = restauranteModel.id;
             if (ds.id) {
                 return ds.$update();
             }

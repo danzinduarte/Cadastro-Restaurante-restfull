@@ -37,7 +37,7 @@
         }
     })
     .state('restaurante-edita', {
-      url: '/restaurante/restaurante-edita/:id',
+      url: '/restaurante-edita/:id',
       templateUrl: '/modules/restaurante/views/restaurante-edita.html',
       controller: 'EditaRestauranteController',
       controllerAs: 'vm',

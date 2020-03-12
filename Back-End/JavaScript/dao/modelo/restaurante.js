@@ -1,10 +1,10 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('Restaurante', {
+    return sequelize.define('Restaurantes', {
         id: {
             type: DataTypes.INTEGER,
-            field: 'id',
+            field: 'Id',
             allowNull: false,
             primaryKey: true,
             autoIncrement: true,
@@ -12,15 +12,14 @@ module.exports = function(sequelize, DataTypes) {
         },
         nomeDoRestaurante: {
             type: DataTypes.STRING(80),
-            field: 'restaurante',
+            field: 'NomeDoRestaurante',
             allowNull: false,
             comment: 'Nome do restaurante'
-        }
-        
+        }   
     }, 
     {
         schema: 'public',
-        tableName: 'restaurante',
+        tableName: 'Restaurantes',
         timestamps: false,
         name:{
             singular:'restaurante',
