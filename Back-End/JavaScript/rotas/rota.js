@@ -12,18 +12,18 @@ let restauranteController = require('../recursos/restaurante.controller');
 
 //Definindo as rotas 
 //Prato
-rota.get('/prato', pratoController.carregaTudo);
-rota.get('/prato/:id', pratoController.carregaPorId);
-rota.post('/prato', pratoController.salva);
-rota.delete('/prato/:id', pratoController.exclui);
-rota.put('/prato/:id', pratoController.atualiza);
+rota.get('/pratos', pratoController.carregaTudo);
+rota.get('/pratso/:id', pratoController.carregaPorId);
+rota.post('/pratos', pratoController.salva);
+rota.delete('/pratos/:id', pratoController.exclui);
+rota.put('/pratos/:id', pratoController.atualiza);
 
 //Usuário
-rota.get('/restaurante', restauranteController.carregaTudo);
-rota.get('/restaurante/:id', restauranteController.carregaPorId);
-rota.post('/restaurante', restauranteController.salva);
-rota.delete('/restaurante/:id', restauranteController.exclui);
-rota.put('/restaurante/:id', restauranteController.atualiza);
+rota.get('/restaurantes', restauranteController.carregaTudo);
+rota.get('/restaurantes/:id', restauranteController.carregaPorId);
+rota.post('/restaurantes', restauranteController.salva);
+rota.delete('/restaurantes/:id', restauranteController.exclui);
+rota.put('/restaurantes/:id', restauranteController.atualiza);
 
 //Torna todas as rotas públicas
 module.exports = rota;

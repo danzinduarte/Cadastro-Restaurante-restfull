@@ -43,7 +43,6 @@ function carregaPorId(req,res){
 
 function salvaRestaurante(req,res){
     
-    //Cria uma variável que recebe os dados vindos do formulário
     let restaurante = req.body
 
 	if (!restaurante) {
@@ -102,9 +101,8 @@ function excluiRestaurante(req,res)
 				})
 				return;
 			}
-			restaurante = restauranteEncontrado
-			restauranteEncontrada.destroy({transaction : t})
-			return dataContext.Restaurante.findById(restaurante.restauranteId, {transaction : t})
+			
+			return dataContext.Restaurante.findByPk(id, {transaction : t})
 		})
 		.then(function(restauranteRetornado) 
 		{
