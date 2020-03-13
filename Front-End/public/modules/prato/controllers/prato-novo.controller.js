@@ -4,8 +4,7 @@ angular.module('app.prato')
 function NovoPratoController(PratoService,$state, pratoId)
 {
     vm              = this;
-    vm.dataset = {}
-    vm.salvaPrato   = salvarPrato;
+    vm.salvaPrato   = salvaPrato;
     vm.cancelar     = cancelar;
 
     function init(){
@@ -19,19 +18,19 @@ function NovoPratoController(PratoService,$state, pratoId)
 
     init()
         
-    function salvarPrato() {
+    function salvaPrato() {
 
         if (vm.form.$invalid) {
             toastr.error("Erro! Revise seus dados e tente novamente.","ERRO")
             return
         } 
         var pratoModel = {},
-        prato = {
-            nomeDoPrato : vm.dataset.nomeDoPrato,
-            preco       : vm.dataset.preco
-        }
-        pratoModel      = prato;
-        pratoModel.id   = pratoId 
+            prato = {
+                nomeDoPrato : vm.dataset.nomeDoPrato,
+                preco       : vm.dataset.preco
+            }
+        pratoModel          = prato;
+        pratoModel.id       = pratoId 
 
         PratoService.save(pratoModel)
         .then(function(resposta) 

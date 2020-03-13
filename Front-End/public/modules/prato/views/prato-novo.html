@@ -9,8 +9,16 @@
         <md-content class="md-padding"></md-content>
             <div layout="row">
                 <md-input-container flex flex>
+                    <label>Nome Do Restaurante</label>
+                    <input required ng-model="vm.dataset.nomeDoRestaurante" name="nomeDoRestaurante" minlength ="3">
+                    <div ng-messages="vm.form.nomeDoRestaurante.$error">
+                        <div ng-message="required">Campo obrigatório.</div>
+                        <div ng-message="minlength">No mínimo 3 caracteres.</div>
+                    </div>
+                </md-input-container flex>
+                <md-input-container flex flex>
                     <label>Nome Do Prato</label>
-                    <input required ng-model="vm.nomeDoPrato" name="nomeDoPrato" minlength ="3">
+                    <input required ng-model="vm.dataset.nomeDoPrato" name="nomeDoPrato" minlength ="3">
                     <div ng-messages="vm.form.nomeDoPrato.$error">
                         <div ng-message="required">Campo obrigatório.</div>
                         <div ng-message="minlength">No mínimo 3 caracteres.</div>
@@ -18,7 +26,7 @@
                 </md-input-container flex>
                 <md-input-container flex flex>
                     <label>Preço</label>
-                    <input required ng-model="vm.preco" name="Preco" type="text" >
+                    <input required ng-model="vm.dataset.preco" name="Preco" type="text" >
                     <div ng-messages="vm.form.preco.$error">
                         <div ng-message="required">Campo obrigatório.</div>
                     </div>
@@ -28,7 +36,7 @@
                 <md-button class="md-warn " ng-click= vm.cancelar()>Cancelar
                      <md-icon md-svg-src="assets/img/cancel.svg"></md-icon>
                 </md-button>
-               <md-button type="submit" ng-click="vm.form.$valid && vm.salvaPratos()"  aria-label="Salvar Dados"> Salvar
+               <md-button type="submit" ng-click="vm.form.$valid && vm.salvaPrato()"  aria-label="Salvar Dados"> Salvar
                 <md-icon md-svg-src="assets/img/save.svg"></md-icon>
                 </md-button>
             </div>

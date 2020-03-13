@@ -29,7 +29,7 @@ function NovoRestauranteController(RestauranteService, $state, restauranteId)
         restaurante = {
             nomeDoRestaurante : vm.dataset.nomeDoRestaurante
         }
-        restauranteModel = restaurante; 
+        restauranteModel    = restaurante; 
         restauranteModel.id = restauranteId
        
         

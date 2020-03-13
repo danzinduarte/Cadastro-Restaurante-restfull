@@ -10,7 +10,7 @@ namespace Api.Models
         [Key]
         public int Id {get; set;}
         public string NomeDoPrato{get; set;}  
-        public float Preco {get; set;}  
+        public string Preco {get; set;}  
 
     }
 }

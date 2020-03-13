@@ -38,7 +38,7 @@
     .state('prato-edita', {
       url: '/prato-editar/:id',
       templateUrl: './modules/prato/views/prato-edita.html',
-      controller: 'EditPratoController',
+      controller: 'EditaPratoController',
       controllerAs: 'vm',
       params: {
           title: "Editar Prato"

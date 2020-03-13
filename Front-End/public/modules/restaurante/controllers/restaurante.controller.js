@@ -9,6 +9,9 @@ function RestauranteController(RestauranteService,$mdDialog, $state)
     vm.editaRestaurante     = editaRestaurante;
     vm.excluiRestaurante    = excluiRestaurante;
     vm.excluir              = excluir;
+    vm.pesquisaRestaurante  = pesquisaRestaurante;
+    vm.carregaNome          = carregaNome;
+
 
     function init(){
         carregaRestaurantes()
@@ -57,6 +60,18 @@ function RestauranteController(RestauranteService,$mdDialog, $state)
         }
 
         RestauranteService.delete(restauranteId).then(sucesso,erro) 
+    }
+    function carregaNome(nomeRestaurante) {
+    	return RestauranteService.getRestaurante(nomeDoRestaurante).then(function(restauranteModel){
+        	vm.dataset = restauranteModel.data;
+       			return restauranteModel.data
+     	})
+    }
+    function pesquisaRestaurante(nomeDoRestaurante){
+        return RestauranteService.getRestaurante(nomeDoRestaurante).then(function(restauranteModel){
+            console.log(restauranteModel.data)
+            return restauranteModel.data;
+        })
     }
 
 
