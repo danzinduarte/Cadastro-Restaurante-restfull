@@ -21,25 +21,23 @@ function carregaTudo(req,res){
 }
 
 function carregaPorId(req,res){
-	return dataContext.Restaurante.findById(req,res).then(function(restaurante){
+	
+	return dataContext.Restaurante.findByPk(req.params.id)
+		.then(function(restaurante) {
+			if (!restaurante) {
+				res.status(404).json({
+					sucesso: false,
+					msg: "Restaurantes não encontrados."
+				})
+				return;
+			}
 
-        if (!restaurante) {
-			res.status(404).json({
-				sucesso: false,
-				msg: "Restaurantes não encontrados."
+			res.status(200).json({
+				sucesso: true,
+				data: restaurante
 			})
-			return;
-		}
-		
-		restaurante = restaurante.get({plain : true})
-		delete restaurante.id;
-
-        res.status(200).json({
-			sucesso: true,
-			data: restaurante
 		})
-    })
-
+	
 } 
 
 function salvaRestaurante(req,res)
@@ -90,7 +88,7 @@ function excluiRestaurante(req,res)
 	dataContext.conexao.transaction(function(t) 
 	{
 		let restaurante
-		dataContext.Restaurante.findById(req.params.id, {transaction : t})
+		dataContext.Restaurante.findByPk(req.params.id, {transaction : t})
 		.then(function(restauranteEncontrado)
 		{
 			if (!restauranteEncontrado) 
