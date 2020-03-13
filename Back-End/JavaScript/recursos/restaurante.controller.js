@@ -27,7 +27,8 @@ function carregaPorId(req,res){
 			if (!restaurante) {
 				res.status(404).json({
 					sucesso: false,
-					msg: "Restaurantes não encontrados."
+					msg: "Restaurantes não encontrados.",
+					erros : restaurante
 				})
 				return;
 			}
@@ -40,39 +41,40 @@ function carregaPorId(req,res){
 	
 } 
 
-function salvaRestaurante(req,res)
-{
-	let restaurante = req.body.restaurante
-	if (!restaurante) 
-	{
-		res.status(404).json(
-		{
+function salvaRestaurante(req,res){
+    
+    //Cria uma variável que recebe os dados vindos do formulário
+    let restaurante = req.body
+
+	if (!restaurante) {
+		res.status(404).json({
 			sucesso: false, 
-			msg: "Formato de entrada inválido."
+			msg: "Formato de entrada inválido.",
+			erro : req.body
 		})
 		return;
-	}
+    }	
+    
+	//Criar um novo objeto Visita no banco de dados com os dados passados pelo formulário
+	dataContext.Restaurante.create(restaurante)
 
-
-	dataContext.conexao.transaction(function(t) {
-		return dataContext.Restaurante.create({
-			nomeDoRestaurante : restaurante.nomeDoRestaurante
-		}, {transaction : t})
+	//Cria uma promise que retorna o JSON
+    .then(function(novoRestaurante){
+        
+        res.status(201).json({
+            sucesso : true,
+            data : novoRestaurante
+        })
 	})
-	//Commit
-	.then(function(restaurante){
-		res.status(201).json({
-			sucesso: true, 
-			data: restaurante
-		})
-	})
-	.catch(function(erro){
-		console.log(erro);
-		res.status(409).json({ 
-			sucesso: false,
-			msg: "Falha ao incluir a nova pessoa" 
-		});
-	})
+	
+	//Caso haja uma exceção
+    .catch(function(err){
+        res.status(409).json({ 
+            sucesso: false,
+			msg: "Falha ao incluir a visita" ,
+			erros : err
+        })
+    })
 }
 function excluiRestaurante(req,res)
 {
@@ -128,80 +130,57 @@ function excluiRestaurante(req,res)
 	})
 }
 
-function atualizaRestaurante(req,res)
-{
-	if (!req.params.id) 
-	{
-		res.status(409).json(
-		{
-			sucesso: false,
-			msg: "Formato de entrada inválido."
-		})
-		return;
-	}
+function atualizaRestaurante(req,res){
+	
+	//No front devo retornar um objeto restaurante com os dados
+	let restaurante	= req.body
 
-	let pratoForm	= req.body.prato;
-	if (!pratoForm) {
+	if (!restaurante) {
 		res.status(404).json({
 			sucesso: false,
-			msg: "Formato de entrada inválido."
+			msg: "Formato de entrada inválido.",
+			erro : req.body
 		})
 		return;
 	}
 
-	dataContext.conexao.transaction(function(t) 
-	{
-		dataContext.Prato.findById(req.params.id, {transaction : t})
-		.then(function(prato)
-		{
-			if (!prato) 
-			{
-				res.status(404).json(
-				{
+	//Inicia transaction
+	dataContext.conexao.transaction(function(t) {
+
+		//Pesquise antes de atualizar
+		dataContext.Restaurante.findByPk(req.params.id, {transaction : t})
+		
+		.then(function(restaurante){
+			if (!restaurante) {
+				res.status(404).json({
 					sucesso: false,
-					msg: "Prato não encontrado."
+					msg: "Restaurante não encontrado.",
+					erro : restaurante
 				})
 				return;
 			}
 			
-			let updateFields = 
-			{
-				nomeDoPrato					: pratoForm.nome,
-				preco						: pratoForm.preco
+			//Campos da restaurante que serão alterados
+			let updateFields = {
+				nomeDoRestaurante			: restaurante.nomeDoRestaurante
 			}
 
-			prato.update(updateFields, {transaction : t})
-			return dataContext.Restaurante.findById(prato.restauranteId, {transaction : t})
+			//Atualiza somente os campos restaurante
+			restaurante.update(updateFields, {transaction : t})
 		})
-		.then(function(restauranteEncontrado)
-		{
-			let updateFields = 
-			{
-				restaurante 		: pratoForm.restaurante
-			}
-
-			return restauranteEncontrado.update(updateFields, {transaction : t})
-
-		})	
-	})
-	//Commit
-	.then(function(pratoAtualizado) 
-	{	
-		res.status(200).json(
-		{
-        	sucesso:true,
-        	msg: "Registro atualizado com sucesso",
-        	data: pratoAtualizado
-        })	
+	}).then(function(restauranteAtualizado) {	
+		res.status(200).json({
+        sucesso:true,
+        msg: "Registro atualizado com sucesso",
+        data: restauranteAtualizado
+        	})	
 	})
 	//Roolback
-	.catch(function(erro)
-	{
+	.catch(function(erro){
 		console.log(erro);
-		res.status(409).json(
-		{ 
+		res.status(409).json({ 
 			sucesso: false,
-			msg: "Falha ao atualizar o prato" 
+			msg: "Falha ao atualizar o restaurante" 
 		});	
 	})
 }
