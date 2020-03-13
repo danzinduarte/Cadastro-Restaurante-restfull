@@ -24,20 +24,15 @@ function carregaTudo(req,res)
 
 function carregaPorId(req,res) 
 {
-	return dataContext.Prato.findById(req.params.id,
-	{}).then(function(prato)
-	{
-		if (!prato) 
-		{
-			res.status(404).json(
-			{
+	return dataContext.Prato.findById(req.params.Id).then(function(prato){
+		if (!prato) 		{
+			res.status(404).json({
 				sucesso: false,
 				msg: "Prato não encontrado."
 			})
 			return;
 		}
 
-		prato = prato.get({plain : true})
         res.status(200).json({
 			sucesso: true,
 			data: prato

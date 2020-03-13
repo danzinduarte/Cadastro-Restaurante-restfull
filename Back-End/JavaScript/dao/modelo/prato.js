@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
             
         },
         preco: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING(60),
             field: 'Preco',
             allowNull: false,
             comment: 'preco do prato'

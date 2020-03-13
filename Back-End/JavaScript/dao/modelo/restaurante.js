@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('Restaurantes', {
+    return sequelize.define('Restaurante', {
         id: {
             type: DataTypes.INTEGER,
             field: 'Id',
@@ -30,6 +30,5 @@ module.exports = function(sequelize, DataTypes) {
 
 module.exports.initRelations = function() {
     delete module.exports.initRelations; 
-    
 };
 

@@ -1,10 +1,8 @@
 const dataContext = require('../dao/dao');
 
-function carregaTudo(req,res) 
-{
+function carregaTudo(req,res){
 		return dataContext.Restaurante.findAll({
-		}).then(function(restaurante)
-	{
+		}).then(function(restaurante){
     	res.status(200).json(
 		{
         	sucesso : true,
@@ -22,24 +20,27 @@ function carregaTudo(req,res)
 	})
 }
 
-function carregaPorId(req,res) 
-{
-	return dataContext.Restaurante.findById(req.params.id)
-	.then(function(restaurante){
-		if (!restaurante){
+function carregaPorId(req,res){
+	return dataContext.Restaurante.findById(req,res).then(function(restaurante){
+
+        if (!restaurante) {
 			res.status(404).json({
 				sucesso: false,
-				msg: "Restaurante não encontrado."
+				msg: "Restaurantes não encontrados."
 			})
 			return;
 		}
-        res.status(200).json(
-        {
+		
+		restaurante = restaurante.get({plain : true})
+		delete restaurante.id;
+
+        res.status(200).json({
 			sucesso: true,
 			data: restaurante
 		})
     })
-}
+
+} 
 
 function salvaRestaurante(req,res)
 {
