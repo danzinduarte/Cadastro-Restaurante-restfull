@@ -36,18 +36,15 @@ function NovoPratoController(PratoService,$state, pratoId)
         .then(function(resposta) 
         {
             if (resposta.sucesso) 
-            {	
-                if (pratoId) 
-                {
-                    toastr.info("Prato atualizado com êxito :)","SUCESSO")
-                    
+            {               
+                toastr.info("Prato atualizado com êxito :)","SUCESSO")  
                 }
                 else 
                 {
                     toastr.success("Prato incluído com êxito :)","SUCESSO")
                 }
                 $state.go('prato')
-            }
+            
         })
         .catch(function(error){
             console.log(error)

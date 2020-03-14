@@ -46,7 +46,7 @@ function salvaRestaurante(req,res){
     let restaurante = req.body
 
 	if (!restaurante) {
-		res.status(404).json({
+		res.status(400).json({
 			sucesso: false, 
 			msg: "Formato de entrada inválido.",
 		})
@@ -58,7 +58,6 @@ function salvaRestaurante(req,res){
 
 	//Cria uma promise que retorna o JSON
     .then(function(novoRestaurante){
-        
         res.status(201).json({
             sucesso : true,
             data : novoRestaurante
@@ -69,7 +68,7 @@ function salvaRestaurante(req,res){
     .catch(function(err){
         res.status(409).json({ 
             sucesso: false,
-			msg: "Falha ao incluir a visita" ,
+			msg: "Falha ao incluir o Restaurante" ,
 			erros : err
         })
     })
@@ -108,47 +107,6 @@ function excluiRestaurante(req,res)
 			erro: error 
 		});	
 	})
-	
-	// dataContext.conexao.transaction(function(t) 
-	// {
-	// 	let restaurante
-	// 	dataContext.Restaurante.findByPk(req.params.id, {transaction : t})
-	// 	.then(function(restauranteEncontrado)
-	// 	{
-	// 		if (!restauranteEncontrado) 
-	// 		{
-	// 			res.status(404).json(
-	// 			{
-	// 				sucesso: false,
-	// 				msg: "Restaurante não encontrado."
-	// 			})
-	// 			return;
-	// 		}
-			
-	// 		return dataContext.Restaurante.findByPk(id, {transaction : t})
-	// 	})
-	// 	.then(function(restauranteRetornado) 
-	// 	{
-	// 		restauranteRetornado.destroy({transaction : t})
-	// 	})
-	// })
-	// .then(function()
-	// {
-	// 	res.status(200).json(
-	// 	{
-    //     	sucesso:true,
-    //     	msg: "Registro excluído com sucesso",
-    //     	data: []
-    //     })	        	
-	// })
-	// .catch(function(erro)
-	// {
-	// 	res.status(409).json(
-	// 	{ 
-	// 		sucesso: false,
-	// 		msg: "Falha ao excluir o restaurante" 
-	// 	});	
-	// })
 }
 
 function atualizaRestaurante(req,res){

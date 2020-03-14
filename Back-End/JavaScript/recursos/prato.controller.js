@@ -24,7 +24,8 @@ function carregaTudo(req,res)
 
 function carregaPorId(req,res) 
 {
-	return dataContext.Prato.findById(req.params.Id).then(function(prato){
+	return dataContext.Prato.findByPk(req.params.id)
+	.then(function(prato){
 		if (!prato) 		{
 			res.status(404).json({
 				sucesso: false,
@@ -42,110 +43,64 @@ function carregaPorId(req,res)
 
 function salvaPrato(req,res)
 {
+	let prato = req.body
 
-	let prato = req.body.prato,
-	restaurante = 
-	{
-		restaurante  : prato.restaurante,
-	}
-
-	if (!prato) 
-	{
-		res.status(404).json(
+	if (!prato){
+		res.status(400).json(
 		{
 			sucesso: false, 
 			msg: "Formato de entrada inválido."
 		})
 		return;
 	}
+	dataContext.Prato.create(prato)
 
-
-	dataContext.conexao.transaction(function(t) 
-	{
-
-		let dadosRestauranteCriado
-		return dataContext.Restaurante.create(restaurante, {transaction : t})
-		.then(function(restauranteCriado) 
-		{
-			dadosRestauranteCriado = restauranteCriado
-			dataContext.Prato.create(
-			{
-				nomeDoPrato			: prato.nomeDoPrato,
-				preco 				: prato.preco,
-				restauranteId		: dadosRestauranteCriado.id
-			}, {transaction : t})
+	.then(function(novoPrato){
+		res.status(201).json({
+			sucerro : true,
+			data : novoPrato
 		})
 	})
-	.then(function(novoPrato)
-	{
-		res.status(201).json(
-		{
-			sucesso: true, 
-			data: novoPrato
+	.catch(function(err){
+		res.status(404).json({
+			sucesso : false,
+			msg: "Falha ao incluir o Prato",
+			erro: err
 		})
-	}).catch(function(erro)
-	{
-		res.status(409).json(
-		{ 
-			sucesso: false,
-			msg: "Falha ao incluir o novo prato" 
-		});
 	})
 }
+
 
 function excluiPrato(req,res)
 {
-	if (!req.params.id) 
-	{
-		res.status(409).json(
-		{
+	if (!req.params.id){
+		return res.status(400).json({
 			sucesso: false,
 			msg: "Formato de entrada inválido."
 		})
-		return;
 	}
-	dataContext.conexao.transaction(function(t) 
-	{
-		let prato
-		dataContext.Prato.findById(req.params.id, {transaction : t})
-		.then(function(pratoEncontrado)
-		{
-			if (!pratoEncontrado) 
-			{
-				res.status(404).json(
-				{
-					sucesso: false,
-					msg: "Prato não encontrado."
-				})
-				return;
-			}
-			prato = pratoEncontrado
-			pratoEncontrada.destroy({transaction : t})
-			return dataContext.Restaurante.findById(prato.restauranteId, {transaction : t})
+
+	dataContext.findByPk(req.params.id).then(function(prato){
+		if (!prato){
+			return res.status(404).json({
+				sucesso : false,
+				msg: "Prato não encontrado"
+			})
+		}
+
+		dataContext.Restaurante.destroy ({ where : { id : req.params.id}}).then(function(result){
+			return res.status(200).json({
+				sucesso : true,
+				msg : "Prato excluido com sucesso!"
+			})
 		})
-		.then(function(restauranteRetornado) 
-		{
-			restauranteRetornado.destroy({transaction : t})
-		})
-	})
-	.then(function()
-	{
-		res.status(200).json(
-		{
-        	sucesso:true,
-        	msg: "Registro excluído com sucesso",
-        	data: []
-        })	        	
-	})
-	.catch(function(erro)
-	{
-		res.status(409).json(
-		{ 
+	}).catch(function(error){
+		return res.status(400).json({
 			sucesso: false,
-			msg: "Falha ao excluir o prato" 
-		});	
-	})
-}
+			msg: "Falha ao excluir Prato",
+			erro: error
+	});
+})}
 
 function atualizaPrato(req,res)
 {

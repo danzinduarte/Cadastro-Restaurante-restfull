@@ -13,7 +13,7 @@ let restauranteController = require('../recursos/restaurante.controller');
 //Definindo as rotas 
 //Prato
 rota.get('/pratos', pratoController.carregaTudo);
-rota.get('/pratso/:id', pratoController.carregaPorId);
+rota.get('/pratos/:id', pratoController.carregaPorId);
 rota.post('/pratos', pratoController.salva);
 rota.delete('/pratos/:id', pratoController.exclui);
 rota.put('/pratos/:id', pratoController.atualiza);
