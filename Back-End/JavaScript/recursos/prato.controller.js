@@ -56,7 +56,7 @@ function salvaPrato(req,res)
 
 	.then(function(novoPrato){
 		res.status(201).json({
-			sucerro : true,
+			sucesso : true,
 			data : novoPrato
 		})
 	})
@@ -136,7 +136,7 @@ function atualizaPrato(req,res){
 
 		pratoBanco.update(updateFields).then(function(pratoAtualizado){
 			return res.status(200).json({
-				sucerro: true,
+				sucesso: true,
 				msg: "Prato Atualizado com Sucesso",
 				data: pratoAtualizado
 			})

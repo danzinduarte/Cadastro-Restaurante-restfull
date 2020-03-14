@@ -12,6 +12,12 @@ angular.module('app.prato')
         ds.id   = pratoId;
         return ds.$get();
     }
+    
+    pratoFactory.delete = function(pratoId){
+        var ds = new api.prato();
+        ds.id = pratoId
+        return ds.$delete({id : pratoId})
+    }
     pratoFactory.save = function(pratoModel){
         var ds                  = new api.prato();
             ds.nomeDoPrato      = pratoModel.nomeDoPrato;
@@ -23,12 +29,6 @@ angular.module('app.prato')
                 return ds.$save();                				
                  				        
     }
-    pratoFactory.delete = function(pratoId){
-        var ds = new api.prato();
-        ds.id = pratoId
-        return ds.$delete({id : pratoId})
-    }
-   
     return pratoFactory;
 
 });
