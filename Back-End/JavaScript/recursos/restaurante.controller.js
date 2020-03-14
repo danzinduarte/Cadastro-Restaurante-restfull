@@ -66,7 +66,7 @@ function salvaRestaurante(req,res){
 	
 	//Caso haja uma exceção
     .catch(function(err){
-        res.status(409).json({ 
+        res.status(404).json({ 
             sucesso: false,
 			msg: "Falha ao incluir o Restaurante" ,
 			erros : err
@@ -117,15 +117,14 @@ function atualizaRestaurante(req,res){
 	if (!restaurante) {
 		return res.status(400).json({
 			sucesso: false,
-			msg: "Formato de entrada inválido.",
-			erro : req.body
+			msg: "Formato de entrada inválido."
 		})		
 	}
 
 	if(!req.params.id) {
 		return res.status(400).json({
 			sucesso: false,
-			msg: "Um id deve ser informado!",
+			msg: "Um id deve ser informado!"
 		})
 	}
 
@@ -158,45 +157,7 @@ function atualizaRestaurante(req,res){
 		});	
 	})
 
-	// //Inicia transaction
-	// dataContext.conexao.transaction(function(t) {
-
-	// 	//Pesquise antes de atualizar
-	// 	dataContext.Restaurante.findByPk(req.params.id, {transaction : t})
-		
-	// 	.then(function(restaurante){
-	// 		if (!restaurante) {
-	// 			res.status(404).json({
-	// 				sucesso: false,
-	// 				msg: "Restaurante não encontrado.",
-	// 				erro : restaurante
-	// 			})
-	// 			return;
-	// 		}
-			
-	// 		//Campos da restaurante que serão alterados
-	// 		let updateFields = {
-	// 			nomeDoRestaurante			: restaurante.nomeDoRestaurante
-	// 		}
-
-	// 		//Atualiza somente os campos restaurante
-	// 		restaurante.update(updateFields, {transaction : t})
-	// 	})
-	// }).then(function(restauranteAtualizado) {	
-	// 	res.status(200).json({
-    //     sucesso:true,
-    //     msg: "Registro atualizado com sucesso",
-    //     data: restauranteAtualizado
-    //     	})	
-	// })
-	// //Roolback
-	// .catch(function(erro){
-	// 	console.log(erro);
-	// 	res.status(409).json({ 
-	// 		sucesso: false,
-	// 		msg: "Falha ao atualizar o restaurante" 
-	// 	});	
-	// })
+	
 }
 
 module.exports = 

@@ -46,8 +46,7 @@ function salvaPrato(req,res)
 	let prato = req.body
 
 	if (!prato){
-		res.status(400).json(
-		{
+		res.status(400).json({
 			sucesso: false, 
 			msg: "Formato de entrada inválido."
 		})
@@ -71,8 +70,7 @@ function salvaPrato(req,res)
 }
 
 
-function excluiPrato(req,res)
-{
+function excluiPrato(req,res){
 	if (!req.params.id){
 		return res.status(400).json({
 			sucesso: false,
@@ -88,7 +86,7 @@ function excluiPrato(req,res)
 			})
 		}
 
-		dataContext.Restaurante.destroy ({ where : { id : req.params.id}}).then(function(result){
+		dataContext.Prato.destroy ({ where : { id : req.params.id}}).then(function(result){
 			return res.status(200).json({
 				sucesso : true,
 				msg : "Prato excluido com sucesso!"
@@ -99,84 +97,53 @@ function excluiPrato(req,res)
 			sucesso: false,
 			msg: "Falha ao excluir Prato",
 			erro: error
-	});
-})}
+		});
+	})
+}
 
-function atualizaPrato(req,res)
-{
-	if (!req.params.id) 
-	{
-		res.status(409).json(
-		{
+function atualizaPrato(req,res){
+
+
+	let prato = req.body
+
+	if(!prato){
+		return res.status(400).json({
 			sucesso: false,
-			msg: "Formato de entrada inválido."
+			msg: "Formato de entrada inválido"
 		})
-		return;
 	}
 
-	let pratoForm	= req.body.prato;
-	if (!pratoForm) {
-		res.status(404).json({
+	if(!req.params.id){
+		return res.status(400).json({
 			sucesso: false,
-			msg: "Formato de entrada inválido."
+			msg: "Um id deve ser informado!"
 		})
-		return;
 	}
 
-	dataContext.conexao.transaction(function(t) 
-	{
-		dataContext.Prato.findById(req.params.id, {transaction : t})
-		.then(function(prato)
-		{
-			if (!prato) 
-			{
-				res.status(404).json(
-				{
-					sucesso: false,
-					msg: "Prato não encontrado."
-				})
-				return;
-			}
-			
-			let updateFields = 
-			{
-				nomeDoPrato					: pratoForm.nome,
-				preco						: pratoForm.preco
-			}
+	dataContext.Prato.findByPk(req.params.id).then(function(pratoBranco){
+		if(!pratoBanco){
+			return res.status(404).json({
+				sucesso: false,
+				msg: "Prato não encontrado"
+			});
+		}
+		let updateFields = {
+			nomeDoPrato : prato.nomeDoPrato,
+			preco 		: prato.preco
+		}
 
-			prato.update(updateFields, {transaction : t})
-			return dataContext.Restaurante.findById(prato.restauranteId, {transaction : t})
+		pratoBanco.update(updateFields).then(function(pratoAtualizado){
+			return res.status(200).json({
+				sucerro: true,
+				msg: "Prato Atualizado com Sucesso",
+				data: pratoAtualizado
+			})
 		})
-		.then(function(restauranteEncontrado)
-		{
-			let updateFields = 
-			{
-				restaurante 		: pratoForm.restaurante
-			}
-
-			return restauranteEncontrado.update(updateFields, {transaction : t})
-
-		})	
-	})
-	//Commit
-	.then(function(pratoAtualizado) 
-	{	
-		res.status(200).json(
-		{
-        	sucesso:true,
-        	msg: "Registro atualizado com sucesso",
-        	data: pratoAtualizado
-        })	
-	})
-	//Roolback
-	.catch(function(erro)
-	{
-		console.log(erro);
-		res.status(409).json(
-		{ 
+	}).catch(function(error){
+		return res.status(404).json({
 			sucesso: false,
-			msg: "Falha ao atualizar o prato" 
-		});	
+			msg: "Falha ao Atualizar o Prato"
+		})
 	})
 }
 
