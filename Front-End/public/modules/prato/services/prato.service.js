@@ -13,7 +13,7 @@ angular.module('app.prato')
         return ds.$get();
     }
     pratoFactory.save = function(pratoModel){
-        var ds = new api.prato();
+        var ds                  = new api.prato();
             ds.nomeDoPrato      = pratoModel.nomeDoPrato;
             ds.preco            = pratoModel.preco;
             ds.id               = pratoModel.id;

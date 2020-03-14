@@ -78,7 +78,7 @@ function excluiPrato(req,res){
 		})
 	}
 
-	dataContext.findByPk(req.params.id).then(function(prato){
+	dataContext.Prato.findByPk(req.params.id).then(function(prato){
 		if (!prato){
 			return res.status(404).json({
 				sucesso : false,
@@ -86,7 +86,8 @@ function excluiPrato(req,res){
 			})
 		}
 
-		dataContext.Prato.destroy ({ where : { id : req.params.id}}).then(function(result){
+		dataContext.Prato.destroy ({ where : { id : req.params.id}})
+		.then(function(result){
 			return res.status(200).json({
 				sucesso : true,
 				msg : "Prato excluido com sucesso!"
@@ -120,7 +121,8 @@ function atualizaPrato(req,res){
 		})
 	}
 
-	dataContext.Prato.findByPk(req.params.id).then(function(pratoBranco){
+	dataContext.Prato.findByPk(req.params.id)
+	.then(function(pratoBanco){
 		if(!pratoBanco){
 			return res.status(404).json({
 				sucesso: false,

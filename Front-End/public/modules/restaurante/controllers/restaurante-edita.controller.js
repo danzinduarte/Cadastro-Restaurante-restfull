@@ -52,7 +52,6 @@ function EditaRestauranteController(RestauranteService, restauranteId, $state)
             }
         })
         .catch(function(error){
-            console.log(error)
             toastr.error("Erro! Revise seus dados e tente novamente.","ERRO")
         })
     }

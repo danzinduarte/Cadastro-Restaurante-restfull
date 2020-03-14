@@ -83,7 +83,7 @@ function excluiRestaurante(req,res)
 	}
 
 	// Quando tu for trabalhar com apenas um model e que ele nao vai fazer outras insercoes em outras tabelas, vc nao precisa utilizar transacao
-	dataContext.Restaurante.findByPk(req.params.id).then( function(restaurante) {
+	dataContext.Restaurante.findByPk(req.params.id).then( function(restaurante){
 		
 		if (!restaurante) {
 			return res.status(404).json({
@@ -93,7 +93,8 @@ function excluiRestaurante(req,res)
 		}
 
 		//restaurante = restaurante.get({ plain : true })
-		dataContext.Restaurante.destroy({ where : { id : req.params.id }}).then(function(result) {
+		dataContext.Restaurante.destroy({ where : { id : req.params.id }})
+		.then(function(result) {
 			return res.status(200).json({
 				sucesso: true,
 				msg: 'Restaurante excluido com sucesso!'
@@ -128,7 +129,8 @@ function atualizaRestaurante(req,res){
 		})
 	}
 
-	dataContext.Restaurante.findByPk(req.params.id).then(function(restauranteBanco){
+	dataContext.Restaurante.findByPk(req.params.id)
+	.then(function(restauranteBanco){
 		if (!restauranteBanco) {
 			return res.status(404).json({
 				sucesso: false,

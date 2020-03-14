@@ -34,19 +34,19 @@ function EditaPratoController(PratoService, pratoId,$state)
 
         PratoService.save(pratoModel)
 		.then(function(resposta){
-             if (resposta.sucesso) {				
-                if (pratoId) {
+             if (resposta.sucesso) 
+             {				
+                
                     toastr.info("Prato atualizado com êxito :)","SUCESSO")
                 }
                 else {
                     toastr.success("Prato incluído com êxito :)","SUCESSO")
-                }
+                
 
                 $state.go('prato')
             }
 		})
 		.catch(function(error){
-            console.log(error)
             toastr.error("Erro! Revise seus dados e tente novamente.","ERRO")
 		})
     }
