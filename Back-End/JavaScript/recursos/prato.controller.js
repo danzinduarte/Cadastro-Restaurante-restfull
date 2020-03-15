@@ -3,8 +3,12 @@ const dataContext = require('../dao/dao');
 function carregaTudo(req,res) 
 {
 	return dataContext.Prato.findAll({
-	}).then(function(pratos)
-	{
+	}).then(function(pratos){
+		pratos = pratos.map(function(pratosRetornados){
+			pratosRetornados = pratosRetornados.get({ plain : true})
+			delete pratosRetornados.restauranteId
+			return pratosRetornados
+		})
     	res.status(200).json(
 		{
         	sucesso : true,
@@ -24,7 +28,11 @@ function carregaTudo(req,res)
 
 function carregaPorId(req,res) 
 {
-	return dataContext.Prato.findByPk(req.params.id)
+	return dataContext.Prato.findByPk(req.params.id,{
+		include: [{
+			model: dataContext.Restaurante
+		}]
+	})
 	.then(function(prato){
 		if (!prato) 		{
 			res.status(404).json({
@@ -33,6 +41,9 @@ function carregaPorId(req,res)
 			})
 			return;
 		}
+		prato = prato.get({plain : true})
+
+		delete prato.restauranteId
 
         res.status(200).json({
 			sucesso: true,
@@ -45,6 +56,10 @@ function salvaPrato(req,res)
 {
 	let prato = req.body
 
+	restaurante = [{
+		nomeDoRestaurante : prato.restaurante.nomeDoRestaurante
+	}]
+
 	if (!prato){
 		res.status(400).json({
 			sucesso: false, 
@@ -52,8 +67,20 @@ function salvaPrato(req,res)
 		})
 		return;
 	}
-	dataContext.Prato.create(prato)
+	dataContext.conexao.transaction(function(t) {
+		
+		let dadosRestauranteCriado
 
+		return dataContext.Restaurante.create(restaurante, {transaction : t})
+		.then(function(restauranteCriado){
+			dadosRestauranteCriado = restauranteCriado
+
+			return dataContext.Restaurante.create({
+				nomeDoRestaurante : prato.nomeDoRestaurante,
+				restauranteId : dadosRestauranteCriado.id
+			},{transaction : t})
+		})
+	})
 	.then(function(novoPrato){
 		res.status(201).json({
 			sucesso : true,
@@ -77,29 +104,42 @@ function excluiPrato(req,res){
 			msg: "Formato de entrada inválido."
 		})
 	}
+	dataContext.conexao.transaction(function(t){
+		
+		let prato
 
-	dataContext.Prato.findByPk(req.params.id).then(function(prato){
-		if (!prato){
-			return res.status(404).json({
-				sucesso : false,
-				msg: "Prato não encontrado"
-			})
-		}
+		dataContext.Prato.findByPk(req.params.id,{transaction : t})
+		.then(function(prato){
+			if (!prato){
+				return res.status(404).json({
+					sucesso : false,
+					msg: "Prato não encontrado"
+				})
+			}
+			prato = pratoEncontrado
 
-		dataContext.Prato.destroy ({ where : { id : req.params.id}})
-		.then(function(result){
-			return res.status(200).json({
-				sucesso : true,
-				msg : "Prato excluido com sucesso!"
+			pratoEncontrado.destroy({transaction : t})
+
+			return dataContext.Restaurante.findByPk(prato.restauranteId, {transaction : t})
+			.then(function ( restauranteRetornado){
+				restauranteRetornado.destroy({transaction : t})
 			})
 		})
-	}).catch(function(error){
-		return res.status(400).json({
-			sucesso: false,
-			msg: "Falha ao excluir Prato",
-			erro: error
-		});
-	})
+
+			//dataContext.Prato.destroy ({ where : { id : req.params.id}})
+			.then(function(result){
+				return res.status(200).json({
+					sucesso : true,
+					msg : "Prato excluido com sucesso!"
+				})
+			})
+		}).catch(function(error){
+			return res.status(400).json({
+				sucesso: false,
+				msg: "Falha ao excluir Prato",
+				erro: error
+			});
+		})
 }
 
 function atualizaPrato(req,res){
@@ -134,17 +174,27 @@ function atualizaPrato(req,res){
 			preco 		: prato.preco
 		}
 
-		pratoBanco.update(updateFields).then(function(pratoAtualizado){
+		pratoBanco.update(updateFields, {transaction : t})
+		return dataContext.Restaurante.findByPk(prato.restauranteId, {transaction : t})
+	})
+	.then(function(restauranteEncontrado){
+		let updateFields = {
+			nomeDoRestaurante : prato.restaurante.nomeDoRestaurante
+		}
+		return restauranteEncontrado.update(updateFields, {transaction : t})
+	})
+		.then(function(pratoAtualizado){
 			return res.status(200).json({
 				sucesso: true,
 				msg: "Prato Atualizado com Sucesso",
 				data: pratoAtualizado
 			})
 		})
-	}).catch(function(error){
+	.catch(function(error){
 		return res.status(404).json({
 			sucesso: false,
-			msg: "Falha ao Atualizar o Prato"
+			msg: "Falha ao Atualizar o Prato",
+			erro : error
 		})
 	})
 }

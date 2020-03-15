@@ -23,6 +23,12 @@ module.exports = function(sequelize, DataTypes) {
             field: 'Preco',
             allowNull: false,
             comment: 'preco do prato'
+        },
+        restauranteId: {
+            type: DataTypes.INTEGER,
+            field: 'RestauranteId',
+            allowNull: false,
+            comment: 'chave estrangeira de restaurante'
         }
     }, 
     {
@@ -38,5 +44,16 @@ module.exports = function(sequelize, DataTypes) {
 
 module.exports.initRelations = function() {
     delete module.exports.initRelations;
+
+    var dataContext         = require('../dao');
+    var Prato               = dataContext.Prato;
+    var Restaurante         = dataContext.Restaurante;
+ 
+
+    Prato.belongsTo(Restaurante, {
+        foreignKey: 'restauranteId',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+    });
 };
 

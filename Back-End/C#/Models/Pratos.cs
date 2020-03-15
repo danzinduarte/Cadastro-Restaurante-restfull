@@ -11,6 +11,7 @@ namespace Api.Models
         public int Id {get; set;}
         public string NomeDoPrato{get; set;}  
         public string Preco {get; set;}  
+        
 
     }
 }
