@@ -68,10 +68,11 @@ function RestauranteController(RestauranteService,$mdDialog, $state)
             return restaurantesModel.data;
         })
     }
-    function carregaNome(nomeCondomino) {
-    	return RestauranteService.getCondomino(nomeCondomino).then(function(condominosModel){
-        	vm.dsCondominos = condominosModel.data;
-       			return condominosModel.data
+    function carregaNome(nomeRestaurante) {
+        return RestauranteService.getRestaurante(nomeRestaurante)
+        .then(function(restauranteModel){
+        	vm.carregaRestaurantes = restauranteModel.data;
+       			return restauranteModel.data
      	})
     }
 }
