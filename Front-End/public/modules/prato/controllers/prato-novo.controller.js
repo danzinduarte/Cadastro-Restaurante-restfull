@@ -1,19 +1,22 @@
 angular.module('app.prato')
 .controller('NovoPratoController', NovoPratoController);
 
-function NovoPratoController(PratoService,$state, pratoId)
+function NovoPratoController(PratoService, RestauranteService, $state, pratoId)
 {
     vm              = this;
     vm.salvaPrato   = salvaPrato;
     vm.cancelar     = cancelar;
+    vm.carregaRestaurantes  = carregaRestaurantes ;
+    vm.restauranteService = RestauranteService;
 
     function init(){
-
         if (pratoId) {
             PratoService.getById(pratoId).then(function(pratoModel){
                 vm.dataset = pratoModel.data
             })
         }
+
+        carregaRestaurantes();
 	}
 
     init()
@@ -29,8 +32,9 @@ function NovoPratoController(PratoService,$state, pratoId)
                 nomeDoPrato : vm.dataset.nomeDoPrato,
                 preco       : vm.dataset.preco
             }
-        pratoModel          = prato;
-        pratoModel.id       = pratoId 
+        pratoModel               = prato;
+        pratoModel.id            = pratoId;
+        pratoModel.RestauranteId = vm.dataset.restaurante.id
 
         PratoService.save(pratoModel)
         .then(function(resposta) 
@@ -51,6 +55,17 @@ function NovoPratoController(PratoService,$state, pratoId)
             toastr.error("Erro! Revise seus dados e tente novamente.","ERRO")
         })
     }
+    function carregaRestaurantes(restauranteId = null) {
+        return vm.restauranteService.getRestaurante(restauranteId)
+        .then(function(restauranteModel){
+            console.log(restauranteModel);
+        	vm.dsRestaurante = restauranteModel.data;
+       			return restauranteModel.data
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    } 
     function cancelar() {
         $state.go('prato')
     }

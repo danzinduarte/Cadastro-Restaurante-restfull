@@ -13,6 +13,7 @@ function RestauranteController(RestauranteService,$mdDialog, $state)
     vm.carregaNome          = carregaNome;
 
 
+
     function init(){
         carregaRestaurantes()
     }
@@ -61,18 +62,16 @@ function RestauranteController(RestauranteService,$mdDialog, $state)
 
         RestauranteService.delete(restauranteId).then(sucesso,erro) 
     }
-    function carregaNome(nomeRestaurante) {
-    	return RestauranteService.getRestaurante(nomeDoRestaurante).then(function(restauranteModel){
-        	vm.dataset = restauranteModel.data;
-       			return restauranteModel.data
-     	})
-    }
     function pesquisaRestaurante(nomeDoRestaurante){
         return RestauranteService.getRestaurante(nomeDoRestaurante).then(function(restauranteModel){
-            console.log(restauranteModel.data)
-            return restauranteModel.data;
+            vm.dsRestaurantes = restauranteModel.data;
+            return restaurantesModel.data;
         })
     }
-
-
+    function carregaNome(nomeCondomino) {
+    	return RestauranteService.getCondomino(nomeCondomino).then(function(condominosModel){
+        	vm.dsCondominos = condominosModel.data;
+       			return condominosModel.data
+     	})
+    }
 }

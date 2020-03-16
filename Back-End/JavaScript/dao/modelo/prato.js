@@ -44,14 +44,13 @@ module.exports = function(sequelize, DataTypes) {
 
 module.exports.initRelations = function() {
     delete module.exports.initRelations;
-
-    var dataContext         = require('../dao');
-    var Prato               = dataContext.Prato;
-    var Restaurante         = dataContext.Restaurante;
+    var dataContext        = require('../dao');
+    var Prato              = dataContext.Prato;
+    var Restaurante        = dataContext.Restaurante;
  
 
     Prato.belongsTo(Restaurante, {
-        foreignKey: 'restauranteId',
+        foreignKey: 'RestauranteId',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
     });

@@ -29,6 +29,10 @@ angular.module('app.prato')
                 return ds.$save();                				
                  				        
     }
+    pratoFactory.getRestaurante = function (nomeDoRestaurante){
+        var ds = new api.restaurante();
+        return ds.$get({ restauranteModel : nomeDoRestaurante});
+    }
     return pratoFactory;
 
 });

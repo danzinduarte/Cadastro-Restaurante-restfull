@@ -23,9 +23,14 @@ angular.module('app.restaurante')
                 return ds.$save();             				
                  				        
     }
-    restauranteFactory.getRestaurante = function (nomeDoRestaurante){
-        var ds = new api.restaurante();
-        return ds.$get({ search : nomeDoRestaurante});
+    restauranteFactory.getRestaurante = function (restauranteId ){
+        try {
+            var ds = new api.restaurante();
+        
+            return restauranteId ? ds.$get({ id : restauranteId}) : ds.$get();
+        } catch (error) {
+            console.log(error);    
+        }
     }
     restauranteFactory.delete = function(restauranteId){
         var ds = new api.restaurante();

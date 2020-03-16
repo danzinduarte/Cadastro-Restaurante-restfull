@@ -1,23 +1,23 @@
 const dataContext = require('../dao/dao');
 
 function carregaTudo(req,res){
-		return dataContext.Restaurante.findAll({
-		}).then(function(restaurante){
-    	res.status(200).json(
-		{
-        	sucesso : true,
-            data : restaurante
-        })
-    }).catch(function(err)
+	return dataContext.Restaurante.findAll({
+	}).then(function(restaurante){
+	res.status(200).json(
 	{
-		res.status(400).json(
-		{ 	
-			sucesso: false,
-			data : [],
-			erros : err
-		});
-		return err;	
+		sucesso : true,
+		data : restaurante
 	})
+}).catch(function(err)
+{
+	res.status(400).json(
+	{ 	
+		sucesso: false,
+		data : [],
+		erros : err
+	});
+	return err;	
+})
 }
 
 function carregaPorId(req,res){
@@ -25,15 +25,13 @@ function carregaPorId(req,res){
 	return dataContext.Restaurante.findByPk(req.params.id)
 		.then(function(restaurante) {
 			if (!restaurante) {
-				res.status(404).json({
+				return res.status(404).json({
 					sucesso: false,
-					msg: "Restaurantes não encontrados.",
+					msg: "Restaurante não encontrado.",
 					erros : restaurante
 				})
-				return;
 			}
-
-			res.status(200).json({
+			return res.status(200).json({
 				sucesso: true,
 				data: restaurante
 			})
@@ -46,11 +44,10 @@ function salvaRestaurante(req,res){
     let restaurante = req.body
 
 	if (!restaurante) {
-		res.status(400).json({
+		return res.status(404).json({
 			sucesso: false, 
 			msg: "Formato de entrada inválido.",
 		})
-		return;
     }	
     
 	//Criar um novo objeto Visita no banco de dados com os dados passados pelo formulário

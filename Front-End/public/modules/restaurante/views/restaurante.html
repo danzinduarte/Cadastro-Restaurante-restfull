@@ -11,11 +11,11 @@
                         md-input-maxlength="50" 
                         md-search-text="vm.query.text"
                         md-selected-item-change="vm.dados(restaurante)"
-                        md-items="restaurante in vm.carregaNome(vm.query.text)"
-                        md-item-text="restaurante.nomeDoRestaurante"
+                        md-items="restaurantes in vm.carregaRestaurantes(vm.query.text)"
+                        md-item-text="restaurantes.nomeDoRestaurante"
                         md-floating-label="Nome">
                           <md-item-template>
-                            <span md-highlight-text="vm.query.text">{{restaurante.nomeDoRestaurante}}</span>
+                            <span md-highlight-text="vm.query.text">{{restaurantes.nomeDoRestaurante}}</span>
                           </md-item-template>
                       </md-autocomplete>
                       <span flex>

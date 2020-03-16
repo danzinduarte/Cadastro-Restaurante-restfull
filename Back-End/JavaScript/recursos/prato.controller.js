@@ -1,7 +1,22 @@
 const dataContext = require('../dao/dao');
+function carregaTudo(req,res) {
+	if (req.query.nomeDoPrato) {
 
-function carregaTudo(req,res) 
-{
+		return dataContext.Prato.findAll({
+			include : [
+				{
+					model : dataContext.Restaurante
+				}
+			]
+		})
+		.then(function(pratosFiltradas) {			
+			res.status(200).json({
+				sucesso:true,
+				data: pratosFiltradas
+			})
+		})
+		//Depois de filtras os nomes devo retornar isso
+	}
 	return dataContext.Prato.findAll({
 	}).then(function(pratos){
 		pratos = pratos.map(function(pratosRetornados){
@@ -9,20 +24,19 @@ function carregaTudo(req,res)
 			delete pratosRetornados.restauranteId
 			return pratosRetornados
 		})
-    	res.status(200).json(
+    	return res.status(200).json(
 		{
         	sucesso : true,
             data : pratos
         })
     }).catch(function(err)
 	{
-		res.status(400).json(
+		return res.status(404).json(
 		{ 	
 			sucesso: false,
 			data : [],
 			erros : err
 		});
-		return err;	
 	})
 }
 
@@ -56,29 +70,29 @@ function salvaPrato(req,res)
 {
 	let prato = req.body
 
-	restaurante = [{
-		nomeDoRestaurante : prato.restaurante.nomeDoRestaurante
-	}]
+	const restaurante = dataContext.Restaurante.findByPk(prato.restauranteId);
+
+	if (!restaurante) {
+		console.log('Restaurante obrigatório');
+	}
 
 	if (!prato){
-		res.status(400).json({
+		return res.status(400).json({
 			sucesso: false, 
 			msg: "Formato de entrada inválido."
 		})
-		return;
+		
 	}
+
 	dataContext.conexao.transaction(function(t) {
 		
-		let dadosRestauranteCriado
+		let dadosRestauranteCriado;
 
 		return dataContext.Restaurante.create(restaurante, {transaction : t})
 		.then(function(restauranteCriado){
 			dadosRestauranteCriado = restauranteCriado
 
-			return dataContext.Restaurante.create({
-				nomeDoRestaurante : prato.nomeDoRestaurante,
-				restauranteId : dadosRestauranteCriado.id
-			},{transaction : t})
+			return dadosRestauranteCriado;
 		})
 	})
 	.then(function(novoPrato){
