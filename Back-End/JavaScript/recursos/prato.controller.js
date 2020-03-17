@@ -91,7 +91,8 @@ function salvaPrato(req,res)
 	.then(function(novoPrato){
 		res.status(201).json({
 			sucesso : true,
-			data : novoPrato
+			data : novoPrato,
+			msg: "atualizar"
 		})
 	})
 	.catch(function(err){
