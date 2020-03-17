@@ -32,19 +32,39 @@
     </md-fab-actions>
   </md-toolbar>
 <div>
+  
   <div layout="row" layout-align=" center" ng-if="(vm.dataset | filter: vm.query.text).length == 0">
     <span class="notFound">Nenhum restaurante encontrado!</span>
     <br>
     <img ng-src="assets/img/not-found.svg"  class="img-404">
   </div>
-    <md-card class="row-card md-whiteframe-20dp" ng-repeat="restaurante in vm.dataset | filter: vm.nomeDoRestaurante">
-    <div layout="row" ng-if="restaurante">
-    </div>
-      <div layout="column" flex>
-        <div layout="column" layout-align="start start">
-          <span class="font-size-18 texto-marcador negrito">Restaurante: {{restaurante.nomeDoRestaurante}}</span>
+    <md-card class="row-card md-whiteframe-20dp" ng-repeat="restaurante in vm.dataset | filter: restaurateId">
+      <div layout="row">
+        <div layout="column" flex>
+            <div layout="row">
+                <span flex></span>                 
+                <md-menu>
+                    <md-button class="md-icon-button" ng-click="$mdMenu.open($event)">
+                        <img src="/assets/img/mote_vert.png" >                     
+                    </md-button>
+                    <md-menu-content width="3">
+                        <md-menu-item>
+                            <md-button ng-click="vm.editaRestaurante(restaurante.id)"> Editar </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="vm.excluiRestaurante($event,restaurante)"> Excluir</md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+
+            </div>
+
+            <div layout="column" layout-align="start start">               
+                <span class="font-size-18 texto-cinza-medio negrito"> Restaurantes: {{restaurante.nomeDoRestaurante}}</span>
+                
+            </div>
         </div>
-      </div>
+    </div>    
     </md-card>
   </div>
 </div> 
