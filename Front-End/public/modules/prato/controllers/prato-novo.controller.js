@@ -58,7 +58,6 @@ function NovoPratoController(PratoService, RestauranteService, $state, pratoId)
     function carregaRestaurantes(restauranteId = null) {
         return vm.restauranteService.getRestaurante(restauranteId)
         .then(function(restauranteModel){
-            console.log(restauranteModel);
         	vm.dsRestaurante = restauranteModel.data;
        			return restauranteModel.data
         })

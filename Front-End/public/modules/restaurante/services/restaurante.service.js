@@ -36,8 +36,11 @@ angular.module('app.restaurante')
         var ds = new api.restaurante();
         ds.id = restauranteId
         return ds.$delete({id : restauranteId})
+    }   
+    restauranteFactory.getRestaurante = function(restauranteModel) {
+        var ds          = new api.restaurante;
+            return ds.$get({nomeDoRestaurante: restauranteModel})
     }
-   
     return restauranteFactory;
 
 });

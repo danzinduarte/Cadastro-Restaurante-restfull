@@ -70,12 +70,6 @@ function salvaPrato(req,res)
 {
 	let prato = req.body
 
-	const restaurante = dataContext.Restaurante.findByPk(prato.restauranteId);
-
-	if (!restaurante) {
-		console.log('Restaurante obrigatório');
-	}
-
 	if (!prato){
 		return res.status(400).json({
 			sucesso: false, 
@@ -91,7 +85,6 @@ function salvaPrato(req,res)
 		return dataContext.Restaurante.create(restaurante, {transaction : t})
 		.then(function(restauranteCriado){
 			dadosRestauranteCriado = restauranteCriado
-
 			return dadosRestauranteCriado;
 		})
 	})

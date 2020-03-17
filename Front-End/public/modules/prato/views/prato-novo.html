@@ -9,8 +9,7 @@
         <md-input-container>
             <label>Restaurantes</label>
             <md-select ng-model="vm.dataset.restaurante">
-              <md-option ng-repeat="restaurantes in vm.dsRestaurante" ng-value="restaurantes"
-                         ng-disabled="$index === 1">
+              <md-option ng-repeat="restaurantes in vm.dsRestaurante" ng-value="restaurantes">
                 {{restaurantes.nomeDoRestaurante}}
               </md-option>
             </md-select>
