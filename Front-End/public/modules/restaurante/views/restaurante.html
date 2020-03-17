@@ -1,71 +1,52 @@
 <div layout="column" flex layout-fill>
   <div layout="row" layout-align="start">
-    <md-button class="md-raised" ng-click="vm.novo()" aria-label="Novo Restaurante">
+    <md-button class="md-raised" ng-click="vm.novoRestaurante()" aria-label="Novo Restaurante">
       <md-icon md-svg-src="assets/img/add.svg"></md-icon>
     </md-button>
-  </div>
+    <span flex></span>
 
   <div layout="row">
-    <md-tooltip>Restaurante</md-tooltip>
-      <md-icon md-svg-src="assets/img/user.svg" class="user"></md-icon>
-        <md-autocomplete class="autocomplete-lista" 
-          ng-init                 = "vm.query.text=vm.dataset.nomeDoRestaurante"
-          md-selected-item        = "vm.query.item"
-          md-input-maxlength      = "50"
-          md-search-text-change   = "vm.carregaRestaurante(vm.query.text)" 
-          md-search-text          = "vm.query.text"
-          md-items                = "restaurante in vm.carregaRestaurantes(vm.query.text)"
-          md-item-text            = "restaurante.nomeDoRestaurante"
-          md-floating-label       = "Pesquisar Restaurante">
-            
-            <md-item-template>
-              <span md-highlight-text="vm.query.text">{{restaurante.nomeDoRestaurante}}</span>
-            </md-item-template>
-        </md-autocomplete>
+    <md-icon md-svg-src="assets/img/user.svg" class="user"></md-icon>
+          <md-autocomplete required class="autocomplete"
+            md-selected-item="vm.query.item"
+            md-input-maxlength="50" 
+            md-search-text="vm.query.text"
+            md-selected-item-change="vm.dados(restaurante)"
+            md-items="restaurante in vm.listaRestaurante(vm.query.text)"
+            md-item-text="restaurante.nomeDoRestaurante"
+            md-floating-label="Nome">
+              <md-item-template>
+                <span md-highlight-text="vm.query.text">{{restaurante.nomeDoRestaurante}}</span>
+              </md-item-template>
+          </md-autocomplete>
+
+          <md-button ng-click="vm.pesquisaRestaurante(vm.query.text)">
+            <md-icon md-svg-src="assets/img/search.svg"></md-icon>
+          </md-button>
+          <span flex></span>
   </div>
 
+  <div layout="row" layout-align="end end">
+      <span>Pesquisando {{vm.query.text ? vm.query.text : null}} em: {{vm.nomeDoRestaurante ? vm.nomeDoRestaurante : 'Todas'}}</span>
+  </div>
     <div>
-      <div layout="row" layout-align="center center" ng-if="vm.dataset.length == 0">
-        <span class="notFound">Nenhum restaurante cadastrado!</span>
-          <br>
-            <img ng-src="assets/img/not-found.svg" class="img-404">
+      <div layout="row" layout-align=" center" ng-if="(vm.dataset | filter: vm.nomeDoRestaurante).length == 0">
+        <span class="notFound">Nenhuma restaurante encontrado!</span>
+        <br>
+        <img ng-src="assets/img/not-found.svg"  class="img-404">
       </div>
-        <md-card class="row-card md-whiteframe-20dp" ng-repeat="restaurante in vm.dataset">
-         <div layout="row">
+      <md-card class="row-card md-whiteframe-20dp" ng-repeat="restaurante in vm.dataset | filter: vm.nomeDoRestaurante">
+         <div layout="row" ng-if="restaurante">
            <div layout="row" flex="20" layout-align="center center">
-             <md-icon md-svg-src="assets/img/porteiro.svg" style="width: 64px; height: 64px;"></md-icon>
+             <img ng-src="assets/img/{{restaurante.nomeDoRestaurante}}.svg" class="img-md-card">
                </div>
                  <div layout="column" flex>
-                   <div layout="row">
-                     <span flex></span>
-                       <md-menu>
-                         <md-button class="md-icon-button" ng-click="$mdMenu.open($event)">
-                           <md-icon md-svg-src="assets/img/edit.svg"></md-icon>                       
-                         </md-button>
-                           <md-menu-content width="3">
-                             <md-menu-item>
-                               <md-button ng-click="vm.editar(restaurante.id)"> Editar </md-button>
-                             </md-menu-item>
-                          </md-menu-content>
-                       </md-menu>
-                         <md-menu>
-                           <md-button class="md-icon-button" ng-click="$mdMenu.open($event)">
-                             <md-icon md-svg-src="assets/img/more-geen.svg"></md-icon>                      
-                           </md-button>
-                             <md-menu-content width="3">
-                               <md-menu-item>
-                                 <md-button ng-click="vm.excluir($event, restaurante)"> Excluir </md-button>
-                                   </md-menu-item>
-                             </md-menu-content>
-                         </md-menu>
-                   </div>
                      <div layout="column" layout-align="start start">
-                       <span class="font-size-16 texto-branco">Código: {{restaurante.id}}</span>
-                       <span class="font-size-18 texto-marcador negrito">Restaurante: {{porteiro.nomeDoRestaurante}}</span>
+                       <span class="font-size-18 texto-marcador negrito">Restaurante: {{restaurante.nomeDoRestaurante}}</span>
                      </div>
                 </div>
-         </div>
-       </md-card>
+              </div>
+        </md-card>
     </div>
 </div> 
     
