@@ -66,9 +66,20 @@ function RestauranteController(RestauranteService,$mdDialog, $state)
        			return vm.dataset
      	})
     }
-    function pesquisaRestaurante(restauranteId) {
-		return RestauranteService.getNome(restauranteId).then(function(restaurantes) {
-			vm.dataset(restaurantes.data)
+    function pesquisaRestaurante(nomeRestaurante) {
+		return RestauranteService.getById(nomeRestaurante).then(function(restaurantes) {
+            vm.dataset = restaurantes.data
+            return vm.dataset 
 		})
+	}
+
+	function verificaNome(dsRestaurante){ 
+		vm.dataset = dsRestaurante.map(function(resp){
+		
+            var RestauranteEncontrado
+            RestauranteEncontrado.id = resp.id;
+            RestauranteService.getById(RestauranteEncontrado);
+			return resp
+		})			
 	}
 }
