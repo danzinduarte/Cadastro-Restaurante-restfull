@@ -10,6 +10,7 @@ function RestauranteController(RestauranteService,$mdDialog, $state)
     vm.excluiRestaurante    = excluiRestaurante;
     vm.excluir              = excluir;
     vm.listaRestaurante     = listaRestaurante;
+    vm.fnFiltraRestaurante  = fnFiltraRestaurante;
 
 
     function init(){
@@ -66,4 +67,7 @@ function RestauranteController(RestauranteService,$mdDialog, $state)
        			return vm.dataset
      	})
     }
+    function fnFiltraRestaurante(filtro) {
+		vm.nomeDoRestaurante = filtro
+	}
 }

@@ -1,6 +1,11 @@
 
 
-<div layout="row">
+<div layout="column">
+  <div>
+    <h3> Filtro </h3>
+  </div>
+  <div layout="row">
+<h4>Nome :</h4>
   <md-autocomplete required class="autocomplete"
     md-selected-item="vm.query.item"
     md-input-maxlength="50" 
@@ -8,13 +13,14 @@
     md-selected-item-change="vm.dados(restaurante)"
     md-items="restaurante in vm.listaRestaurante(vm.query.text)"
     md-item-text="restaurante.nomeDoRestaurante"
-    md-floating-label="nomeDoRestaurante">
+    md-floating-label="Nome do Restaurante">
       <md-item-template>
-        <span md-highlight-text="vm.query.text">{{restaurante.nomeDoRestaurante}}</span>
+
+        <span md-highlight-text="vm.query.text">  {{ restaurante.nomeDoRestaurante}}</span>
       </md-item-template>
   </md-autocomplete>
-  <div layout="row" layout-align="start">
-    <span>Pesquisando {{vm.query.text ? vm.query.text : null}} nos {{vm.nomeDoRestaurante ? vm.restaurante : 'Restaurantes'}}</span>
+  <div layout="row" layout-align="end">
+    <h3> Pesquisando {{vm.query.text ? vm.query.text : null}} nos {{vm.nomeDoRestaurante ? vm.nomeDoRestaurante : 'Restaurantes'}}</h3>
   </div>
 </div>
 <div>
@@ -28,12 +34,12 @@
   </md-toolbar>
 <div>
   
-  <div layout="row" layout-align=" center" ng-if="(vm.dataset | filter: vm.query.text).length == 0">
+  <div layout="row" layout-align=" center" ng-if="(vm.dataset | filter: vm.nomeDoRestaurante).length == 0">
     <span class="notFound">Nenhum restaurante encontrado!</span>
     <br>
     <img ng-src="assets/img/not-found.svg"  class="img-404">
   </div>
-    <md-card class="row-card md-whiteframe-20dp" ng-repeat="restaurante in vm.dataset | filter: restaurateId">
+    <md-card class="row-card md-whiteframe-20dp" ng-repeat="restaurante in vm.dataset | filter: filter: vm.nomeDoRestaurante">
       <div layout="row">
         <div layout="column" flex>
             <div layout="row">
@@ -51,12 +57,9 @@
                         </md-menu-item>
                     </md-menu-content>
                 </md-menu>
-
             </div>
-
             <div layout="column" layout-align="start start">               
                 <span class="font-size-18 texto-cinza-medio negrito"> Restaurantes: {{restaurante.nomeDoRestaurante}}</span>
-                
             </div>
         </div>
     </div>    
