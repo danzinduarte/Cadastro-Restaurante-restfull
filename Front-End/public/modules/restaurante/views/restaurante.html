@@ -13,13 +13,8 @@
         <span md-highlight-text="vm.query.text">{{restaurante.nomeDoRestaurante}}</span>
       </md-item-template>
   </md-autocomplete>
-  <div layout = "row">
-    <md-button ng-click="vm.pesquisaRestaurante(vm.query.text)">
-      <md-icon md-svg-src="assets/img/search.svg"></md-icon>
-    </md-button>  
-  </div>
   <div layout="row" layout-align="start">
-    <span>Pesquisando {{vm.query.text ? vm.query.text : null}} em: {{vm.nomeDoRestaurante ? vm.restaurante : 'Restaurantes'}}</span>
+    <span>Pesquisando {{vm.query.text ? vm.query.text : null}} nos {{vm.nomeDoRestaurante ? vm.restaurante : 'Restaurantes'}}</span>
   </div>
 </div>
 <div>

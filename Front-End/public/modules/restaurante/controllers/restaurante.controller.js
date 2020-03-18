@@ -10,7 +10,7 @@ function RestauranteController(RestauranteService,$mdDialog, $state)
     vm.excluiRestaurante    = excluiRestaurante;
     vm.excluir              = excluir;
     vm.listaRestaurante     = listaRestaurante;
-    vm.pesquisaRestaurante  = pesquisaRestaurante;
+
 
     function init(){
         carregaRestaurantes()
@@ -66,23 +66,4 @@ function RestauranteController(RestauranteService,$mdDialog, $state)
        			return vm.dataset
      	})
     }
-    function pesquisaRestaurante(restauranteId) {
-		return RestauranteService.getById(restauranteId).then(function(restauranteModel){
-            vm.dataset = restauranteModel.data
-            if(restauranteId){
-                vm.dataset = restauranteId
-                return vm.dataset
-            }
-        })
-	}
-
-	function verificaNome(dsRestaurante){ 
-		vm.dataset = dsRestaurante.map(function(resp){
-		
-            var RestauranteEncontrado
-            RestauranteEncontrado.id = resp.id;
-            RestauranteService.getById(RestauranteEncontrado);
-			return resp
-		})			
-	}
 }

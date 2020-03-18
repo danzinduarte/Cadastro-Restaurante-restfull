@@ -14,7 +14,7 @@
     .state('prato-novo', {
         url: '/prato-novo',
         templateUrl: './modules/prato/views/prato-novo.html',
-        controller: 'NovoPratoController',
+        controller: 'PratoEditaController',
         controllerAs: 'vm',
         params: {
             title: "Novo Prato"
@@ -38,7 +38,7 @@
     .state('prato-edita', {
       url: '/prato-editar/:id',
       templateUrl: './modules/prato/views/prato-edita.html',
-      controller: 'EditaPratoController',
+      controller: 'PratoEditaController',
       controllerAs: 'vm',
       params: {
           title: "Editar Prato"

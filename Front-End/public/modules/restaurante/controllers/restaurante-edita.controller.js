@@ -1,7 +1,7 @@
 angular.module('app.restaurante')
-.controller('EditaRestauranteController', EditaRestauranteController);
+.controller('RestauranteEditaController', RestauranteEditaController);
 
-function EditaRestauranteController(RestauranteService, restauranteId, $state)
+function RestauranteEditaController(RestauranteService, restauranteId, $state)
 {
     vm = this;
     vm.dataset = {}

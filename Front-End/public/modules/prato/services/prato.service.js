@@ -19,10 +19,11 @@ angular.module('app.prato')
         return ds.$delete({id : pratoId})
     }
     pratoFactory.save = function(pratoModel){
-        var ds                  = new api.prato();
-            ds.nomeDoPrato      = pratoModel.nomeDoPrato;
-            ds.preco            = pratoModel.preco;
-            ds.id               = pratoModel.id;
+        var ds                                   = new api.prato();
+            ds.nomeDoPrato                       = pratoModel.nomeDoPrato;
+            ds.preco                             = pratoModel.preco;
+            ds.id                                = pratoModel.id;
+            ds.restauranteId                     = pratoModel.restauranteId;
             if (ds.id) {
                 return ds.$update();
             }

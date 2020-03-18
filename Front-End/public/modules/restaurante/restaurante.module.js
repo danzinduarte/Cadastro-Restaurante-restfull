@@ -14,7 +14,7 @@
     .state('restaurante-novo', {
         url: '/restaurante-novo',
         templateUrl: './modules/restaurante/views/restaurante-novo.html',
-        controller: 'NovoRestauranteController',
+        controller: 'RestauranteEditaController',
         controllerAs: 'vm',
         params: {
             title: "Novo Restaurante"
@@ -39,7 +39,7 @@
     .state('restaurante-edita', {
       url: '/restaurante-edita/:id',
       templateUrl: '/modules/restaurante/views/restaurante-edita.html',
-      controller: 'EditaRestauranteController',
+      controller: 'RestauranteEditaController',
       controllerAs: 'vm',
       params: {
           title: "Editar Restaurante",

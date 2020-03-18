@@ -86,6 +86,7 @@ function salvaPrato(req,res)
 			})
 		})
 		.catch((err) => {
+			console.log(err)
 			return res.status(400).json({
 				success : false,
 				msg : 'Houve um erro ao incluir o prato'

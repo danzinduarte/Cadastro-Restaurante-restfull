@@ -6,6 +6,14 @@
         </div>
     </md-toolbar>
     <form name="vm.form">
+        <md-input-container>
+            <label>Restaurantes</label>
+            <md-select ng-model="vm.dataset.restaurante">
+              <md-option ng-repeat="restaurantes in vm.dsRestaurante" ng-value="restaurantes">
+                {{restaurantes.nomeDoRestaurante}}
+              </md-option>
+            </md-select>
+          </md-input-container>
         <md-content class="md-padding"></md-content>
             <div layout="row">
                 <md-input-container flex flex>
