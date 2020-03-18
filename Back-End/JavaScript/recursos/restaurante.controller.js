@@ -1,27 +1,28 @@
 const dataContext = require('../dao/dao');
 
 function carregaTudo(req,res){
-	return dataContext.Restaurante.findAll({
-	}).then(function(restaurante){
-	res.status(200).json(
+	
+	dataContext.Restaurante.findAll({
+		
+		}).then(function(restaurante){
+			return res.status(200).json(
+		{
+			sucesso : true,
+			data : restaurante
+		})
+	}).catch(function(err)
 	{
-		sucesso : true,
-		data : restaurante
+		return res.status(400).json(
+		{ 	
+			sucesso: false,
+			data : [],
+			erros : err
+		});
 	})
-}).catch(function(err)
-{
-	res.status(400).json(
-	{ 	
-		sucesso: false,
-		data : [],
-		erros : err
-	});
-	return err;	
-})
 }
 
 function carregaPorId(req,res){
-	
+	console.log(req.query)
 	return dataContext.Restaurante.findByPk(req.params.id)
 		.then(function(restaurante) {
 			if (!restaurante) {

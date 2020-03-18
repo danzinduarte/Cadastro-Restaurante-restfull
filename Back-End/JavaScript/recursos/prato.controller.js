@@ -1,11 +1,12 @@
 const dataContext = require('../dao/dao');
 function carregaTudo(req,res) {
-	if (req.query.nomeDoPrato) {
-
+	if (req.query) {
 		return dataContext.Prato.findAll({
+			attributes: { exclude: ['restauranteId']},
 			include : [
 				{
 					model : dataContext.Restaurante
+					 
 				}
 			]
 		})
@@ -15,7 +16,7 @@ function carregaTudo(req,res) {
 				data: pratosFiltradas
 			})
 		})
-		//Depois de filtras os nomes devo retornar isso
+		
 	}
 	return dataContext.Prato.findAll({
 	}).then(function(pratos){
@@ -78,30 +79,21 @@ function salvaPrato(req,res)
 		
 	}
 
-	dataContext.conexao.transaction(function(t) {
-		
-		let dadosRestauranteCriado;
-
-		return dataContext.Restaurante.create(restaurante, {transaction : t})
-		.then(function(restauranteCriado){
-			dadosRestauranteCriado = restauranteCriado
-			return dadosRestauranteCriado;
+	dataContext.Prato.create(prato)
+		.then((prato) => {
+			return res.status(201).json({
+				success : true,
+				data : prato,
+				msg : 'Prato criado com sucesso'
+			})
 		})
-	})
-	.then(function(novoPrato){
-		res.status(201).json({
-			sucesso : true,
-			data : novoPrato,
-			msg: "atualizar"
+		.catch((err) => {
+			return res.status(400).json({
+				success : false,
+				data : [],
+				msg : 'Houve um erro ao incluir o prato'
+			})
 		})
-	})
-	.catch(function(err){
-		res.status(404).json({
-			sucesso : false,
-			msg: "Falha ao incluir o Prato",
-			erro: err
-		})
-	})
 }
 
 

@@ -30,7 +30,8 @@ function NovoPratoController(PratoService, RestauranteService, $state, pratoId)
         var pratoModel = {},
             prato = {
                 nomeDoPrato : vm.dataset.nomeDoPrato,
-                preco       : vm.dataset.preco
+                preco       : vm.dataset.preco,
+                restauranteId : vm.dataset.restauranteId
             }
         pratoModel               = prato;
         pratoModel.id            = pratoId;
