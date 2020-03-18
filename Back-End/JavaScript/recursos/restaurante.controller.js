@@ -58,7 +58,8 @@ function salvaRestaurante(req,res){
     .then(function(novoRestaurante){
         res.status(201).json({
             sucesso : true,
-            data : novoRestaurante
+			data : novoRestaurante,
+			msg : "Restaurante criado com sucesso"
         })
 	})
 	
@@ -81,7 +82,8 @@ function excluiRestaurante(req,res)
 	}
 
 	// Quando tu for trabalhar com apenas um model e que ele nao vai fazer outras insercoes em outras tabelas, vc nao precisa utilizar transacao
-	dataContext.Restaurante.findByPk(req.params.id).then( function(restaurante){
+	dataContext.Restaurante.findByPk(req.params.id)
+		.then( function(restaurante){
 		
 		if (!restaurante) {
 			return res.status(404).json({
@@ -112,21 +114,18 @@ function atualizaRestaurante(req,res){
 	
 	//No front devo retornar um objeto restaurante com os dados
 	let restaurante	= req.body
-
 	if (!restaurante) {
 		return res.status(400).json({
 			sucesso: false,
 			msg: "Formato de entrada inválido."
 		})		
 	}
-
 	if(!req.params.id) {
 		return res.status(400).json({
 			sucesso: false,
 			msg: "Um id deve ser informado!"
 		})
 	}
-
 	dataContext.Restaurante.findByPk(req.params.id)
 	.then(function(restauranteBanco){
 		if (!restauranteBanco) {
@@ -135,29 +134,25 @@ function atualizaRestaurante(req,res){
 				msg: "Restaurante não encontrado."				
 			});
 		}
-
 		// Campos da restaurante que serão alterados
 		let updateFields = {
 			nomeDoRestaurante			: restaurante.nomeDoRestaurante
 		}
-
 		// Atualiza somente os campos restaurante
-		restauranteBanco.update(updateFields).then(function(restauranteAtualizado){
+		restauranteBanco.update(updateFields)
+		.then(function(restauranteAtualizado){
 			return res.status(200).json({
 				sucesso:true,
 				msg: "Registro atualizado com sucesso",
 				data: restauranteAtualizado
 			})	
 		})
-
 	}).catch(function(error){
 		return res.status(400).json({ 
 			sucesso: false,
 			msg: "Falha ao atualizar o restaurante" 
 		});	
 	})
-
-	
 }
 
 module.exports = 
