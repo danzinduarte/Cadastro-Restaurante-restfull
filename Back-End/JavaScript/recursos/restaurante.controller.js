@@ -1,7 +1,23 @@
 const dataContext = require('../dao/dao');
 
 function carregaTudo(req,res){
+	if(req.query.nomeDoRestaurante){
+		return dataContext.Restaurante.findAll({
+			where : {
+				nomeDoRestaurante : {
+					$like : req.query.nomeDoRestaurante+'%'
+				}
+			}
+		})
+		.then(function(restaurantesFiltrados) {
 	
+			
+			res.status(200).json({
+				sucesso:true,
+				data: restaurantesFiltrados
+			})
+		})
+	}
 	dataContext.Restaurante.findAll({
 		
 		}).then(function(restaurante){

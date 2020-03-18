@@ -8,7 +8,7 @@
     md-selected-item-change="vm.dados(restaurante)"
     md-items="restaurante in vm.listaRestaurante(vm.query.text)"
     md-item-text="restaurante.nomeDoRestaurante"
-    md-floating-label="Nome">
+    md-floating-label="nomeDoRestaurante">
       <md-item-template>
         <span md-highlight-text="vm.query.text">{{restaurante.nomeDoRestaurante}}</span>
       </md-item-template>
@@ -19,7 +19,7 @@
     </md-button>  
   </div>
   <div layout="row" layout-align="start">
-    <span>Pesquisando {{vm.query.text ? vm.query.text : null}} em: {{vm.restaurante.nomeDoRestaurante ? vm.restaurante.nomeDoRestaurante : 'Restaurantes'}}</span>
+    <span>Pesquisando {{vm.query.text ? vm.query.text : null}} em: {{vm.nomeDoRestaurante ? vm.restaurante : 'Restaurantes'}}</span>
   </div>
 </div>
 <div>
