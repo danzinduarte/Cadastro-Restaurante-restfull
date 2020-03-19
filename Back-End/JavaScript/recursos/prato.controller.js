@@ -25,15 +25,12 @@ function carregaTudo(req,res) {
 			
 			return pratosRetornados
 		})
-    	return res.status(200).json(
-		{
+    	return res.status(200).json({
         	sucesso : true,
             data : pratos
         })
-    }).catch(function(err)
-	{
-		return res.status(404).json(
-		{ 	
+    }).catch(function(err){
+		return res.status(404).json({ 	
 			sucesso: false,
 			data : [],
 			erros : err
@@ -41,8 +38,7 @@ function carregaTudo(req,res) {
 	})
 }
 
-function carregaPorId(req,res) 
-{
+function carregaPorId(req,res){
 	return dataContext.Prato.findByPk(req.params.id,{
 		attributes: { exclude: ['RestauranteId']},
 		include: [{
@@ -65,8 +61,7 @@ function carregaPorId(req,res)
     })
 }
 
-function salvaPrato(req,res)
-{
+function salvaPrato(req,res){
 	let prato = req.body
 
 	if (!prato){
@@ -76,27 +71,24 @@ function salvaPrato(req,res)
 		})
 		
 	}
-
 	dataContext.Prato.create(prato)
-		.then((prato) => {
-			return res.status(201).json({
-				success : true,
-				data : prato,
-				msg : 'Prato criado com sucesso'
-			})
+	.then((prato) => {
+		return res.status(201).json({
+			success : true,
+			data : prato,
+			msg : 'Prato criado com sucesso'
 		})
-		.catch((err) => {
-			console.log(err)
-			return res.status(400).json({
-				success : false,
-				msg : 'Houve um erro ao incluir o prato'
-			})
+	})
+	.catch((err) => {
+		return res.status(400).json({
+			success : false,
+			msg : 'Houve um erro ao incluir o prato'
 		})
+	})
 }
 
 
-function excluiPrato(req,res)
-{
+function excluiPrato(req,res){
 	if (!req.params.id){
 		return res.status(400).json({
 			sucesso: false,

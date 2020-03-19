@@ -18,19 +18,15 @@ function carregaTudo(req,res){
 			})
 		})
 	} 
-
 	dataContext.Restaurante.findAll({
-		
 		}).then(function(restaurante){
-			return res.status(200).json(
-		{
+			return res.status(200).json({
 			sucesso : true,
 			data : restaurante
 		})
 	}).catch(function(err)
 	{
-		return res.status(400).json(
-		{ 	
+		return res.status(400).json({ 	
 			sucesso: false,
 			data : [],
 			erros : err
@@ -41,19 +37,19 @@ function carregaTudo(req,res){
 function carregaPorId(req,res){
 
 	return dataContext.Restaurante.findByPk(req.params.id)
-		.then(function(restaurante) {
-			if (!restaurante) {
-				return res.status(404).json({
-					sucesso: false,
-					msg: "Restaurante não encontrado.",
-					erros : restaurante
-				})
-			}
-			return res.status(200).json({
-				sucesso: true,
-				data: restaurante
+	.then(function(restaurante) {
+		if (!restaurante) {
+			return res.status(404).json({
+				sucesso: false,
+				msg: "Restaurante não encontrado.",
+				erros : restaurante
 			})
+		}
+		return res.status(200).json({
+			sucesso: true,
+			data: restaurante
 		})
+	})
 	
 } 
 
