@@ -9,9 +9,9 @@
         <md-input-container>
             <label>Restaurantes</label>
             <md-select ng-model="vm.dataset.restaurante">
-              <md-option ng-repeat="restaurantes in vm.dsRestaurante" ng-value="restaurantes">
+                <md-option ng-repeat="restaurantes in vm.dsRestaurante" ng-value="restaurantes">
                 {{restaurantes.nomeDoRestaurante}}
-              </md-option>
+                </md-option>
             </md-select>
           </md-input-container>
         <md-content class="md-padding"></md-content>
@@ -45,5 +45,6 @@
                    <md-icon md-svg-src="assets/img/save.svg"></md-icon>
                 </md-button>
             </div>     
-        </md-dialog-actions>   
+        </md-dialog-actions>  
+    </form> 
 </div>

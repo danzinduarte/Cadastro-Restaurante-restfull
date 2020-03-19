@@ -19,8 +19,7 @@ function RestauranteEditaController(RestauranteService, restauranteId, $state)
 
     init()	
 
-    function salvaRestaurante() 
-    {
+    function salvaRestaurante(){
         if (vm.form.$invalid) 
         {
             toastr.error("Erro! Revise seus dados e tente novamente.","ERRO")
@@ -36,12 +35,10 @@ function RestauranteEditaController(RestauranteService, restauranteId, $state)
         restauranteModel.id = restauranteId
         
         RestauranteService.save(restauranteModel)
-        .then(function(resposta) 
-        {
+        .then(function(resposta){
             if (resposta.sucesso) 
             {	
-                if (restauranteId) 
-                {
+                if (restauranteId){
                     toastr.info("Restaurante atualizado com êxito :)","SUCESSO")
                 }
                 else 

@@ -20,8 +20,7 @@ angular.module('app.restaurante')
             if (ds.id) {
                 return ds.$update();
             }
-                return ds.$save();             				
-                 				        
+                return ds.$save();             				                 				        
     }
     restauranteFactory.getRestaurante = function (restauranteId ){
         try {

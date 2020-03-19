@@ -48,7 +48,6 @@ function PratoEditaController(PratoService, RestauranteService, $state, pratoId)
                     toastr.success("Prato incluído com êxito :)","SUCESSO")
                 }
                 $state.go('prato')
-            
         })
         .catch(function(error){
             toastr.error("Erro! Revise seus dados e tente novamente.","ERRO")
@@ -60,8 +59,8 @@ function PratoEditaController(PratoService, RestauranteService, $state, pratoId)
         	vm.dsRestaurante = restauranteModel.data;
        			return restauranteModel.data
         })
-        .catch(error => {
-            console.log(error);
+        .catch(function(error){
+            toastr.error("Erro! Id Não encontrado","ERRO")
         })
     } 
     function cancelar() {
