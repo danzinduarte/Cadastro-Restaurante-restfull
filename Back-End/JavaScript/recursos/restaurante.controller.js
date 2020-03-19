@@ -1,23 +1,24 @@
 const dataContext = require('../dao/dao');
+const { Op } = require('sequelize');
 
 function carregaTudo(req,res){
-	if(req.query.nomeDoRestaurante){
+
+	if(req.query.restauranteNomes) {
 		return dataContext.Restaurante.findAll({
 			where : {
 				nomeDoRestaurante : {
-					$like : req.query.nomeDoRestaurante+'%'
+					[Op.like] : `%${req.query.restauranteNomes}%`
 				}
 			}
 		})
-		.then(function(restaurantesFiltrados) {
-	
-			
+		.then(function(restaurantesFiltrados) {				
 			res.status(200).json({
 				sucesso:true,
 				data: restaurantesFiltrados
 			})
 		})
-	}
+	} 
+
 	dataContext.Restaurante.findAll({
 		
 		}).then(function(restaurante){
@@ -38,7 +39,7 @@ function carregaTudo(req,res){
 }
 
 function carregaPorId(req,res){
-	console.log(req.query)
+
 	return dataContext.Restaurante.findByPk(req.params.id)
 		.then(function(restaurante) {
 			if (!restaurante) {

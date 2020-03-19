@@ -61,8 +61,8 @@ function RestauranteController(RestauranteService,$mdDialog, $state)
 
         RestauranteService.delete(restauranteId).then(sucesso,erro) 
     }
-    function listaRestaurante(nomeRestaurante) {
-    	return RestauranteService.getRestaurantes(nomeRestaurante).then(function(restauranteModel){
+    function listaRestaurante(nomeDoRestaurante) {
+    	return RestauranteService.getRestaurantes(nomeDoRestaurante).then(function(restauranteModel){
         	vm.dataset = restauranteModel.data;
        			return vm.dataset
      	})

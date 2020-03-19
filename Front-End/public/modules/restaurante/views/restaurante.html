@@ -33,13 +33,11 @@
     </md-fab-actions>
   </md-toolbar>
 <div>
-  
   <div layout="row" layout-align=" center" ng-if="(vm.dataset | filter: vm.nomeDoRestaurante).length == 0">
     <span class="notFound">Nenhum restaurante encontrado!</span>
-    <br>
     <img ng-src="assets/img/not-found.svg"  class="img-404">
   </div>
-    <md-card class="row-card md-whiteframe-20dp" ng-repeat="restaurante in vm.dataset | filter: filter: vm.nomeDoRestaurante">
+    <md-card class="row-card md-whiteframe-20dp" ng-repeat="restaurante in vm.dataset | filter: vm.nomeDoRestaurante">
       <div layout="row">
         <div layout="column" flex>
             <div layout="row">
